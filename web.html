@@ -389,6 +389,8 @@
       nav { padding: 16px 24px; }
       .nav-links { gap: 16px; }
       .hero { padding: 100px 24px 60px; }
+      .hero-content { flex-direction: column !important; }
+      .hero-content img { width: 160px !important; height: 200px !important; }
       section { padding: 64px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
       .project-card.featured {
@@ -428,17 +430,24 @@
 
 <!-- HERO -->
 <section class="hero" id="home" aria-label="Introduction">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Electrical Engineering Portfolio</p>
-    <p class="hero-typewriter" id="typewriter"><span class="cursor"></span></p>
-    <h1 class="hero-name">Long<br><span class="accent">Hoang Ho</span></h1>
-    <p class="hero-desc">
-      EE student at Cal Poly SLO · CS minor · interested in digital design, computer architecture, and verification.
-    </p>
-    <div class="hero-ctas">
-      <a href="#hardware" class="btn-primary">View Projects</a>
-      <a href="mailto:hhlong605@gmail.com" class="btn-secondary">Get in Touch</a>
+  <div class="hero-content" style="display:flex;align-items:center;justify-content:space-between;gap:48px;width:100%;max-width:1100px;">
+    <div>
+      <p class="hero-eyebrow">Electrical Engineering Portfolio</p>
+      <p class="hero-typewriter" id="typewriter"><span class="cursor"></span></p>
+      <h1 class="hero-name">Long<br><span class="accent">Hoang Ho</span></h1>
+      <p class="hero-desc">
+        EE student at Cal Poly SLO · CS minor · interested in digital design, computer architecture, and verification.
+      </p>
+      <div class="hero-ctas">
+        <a href="#hardware" class="btn-primary">View Projects</a>
+        <a href="mailto:hhlong605@gmail.com" class="btn-secondary">Get in Touch</a>
+      </div>
     </div>
+    <img
+      src="P1040944.jpg"
+      alt="Long Hoang Ho"
+      style="width:260px;height:320px;object-fit:cover;object-position:top;border:1px solid var(--border);filter:grayscale(15%);flex-shrink:0;"
+    />
   </div>
 </section>
 
@@ -554,49 +563,73 @@
       </div>
     </article>
 
+
     <!-- LFGPU -->
-    <article class="project-card">
-      <span class="card-tag">GPU Architecture · RTL</span>
-      <h3 class="card-title">LFGPU — RISC-V GPU Core</h3>
-      <p class="card-timeline">May 2026 – Present · Personal Project</p>
-      <p class="card-desc">
-        My personal fork of Cal Poly CARP's GAR GPU (itself built on the open-source tiny-gpu) to
-        learn GPU architecture hands-on. The fork already had a working round-robin warp scheduler
-        and multi-warp execution. My goal: migrate the entire ISA from a custom encoding to standard
-        RV32IM, enabling the GPU to run real compiler-generated kernels and targeting compatibility
-        with the Vortex RISC-V GPU compiler.
-      </p>
-      <p class="card-desc">
-        <strong style="color:var(--text);font-size:12px;font-family:var(--mono);letter-spacing:0.08em;">What I've done so far</strong>
-      </p>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
-        <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
-          <span style="position:absolute;left:0;color:var(--cyan);">›</span>
-          <strong style="color:var(--text);">Full RV32IM ISA rewrite</strong> — rearchitected instruction decoding across all RTL files (~3000 lines of SV).
-        </li>
-        <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
-          <span style="position:absolute;left:0;color:var(--cyan);">›</span>
-          <strong style="color:var(--text);">CSR register support</strong> — added machine-mode CSRs so kernels can read thread ID for work indexing.
-        </li>
-        <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
-          <span style="position:absolute;left:0;color:var(--cyan);">›</span>
-          <strong style="color:var(--text);">Assembler migration</strong> — rewrote the Rust assembler to emit standard RV32IM encodings; re-assembled all 13 kernel programs in standard RISC-V assembly.
-        </li>
-        <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
-          <span style="position:absolute;left:0;color:var(--cyan);">›</span>
-          <strong style="color:var(--text);">Verification</strong> — resolved a deadlock in the warp execution pipeline causing indefinite stalls; validated correctness and recorded baseline performance across all kernels in RTL simulation.
-        </li>
-      </ul>
-      <div class="card-tech">
-        <span class="tech-pill">SystemVerilog</span>
-        <span class="tech-pill">cocotb</span>
-        <span class="tech-pill">iverilog</span>
-        <span class="tech-pill">Python</span>
-        <span class="tech-pill">Rust</span>
-        <span class="tech-pill">RISC-V Assembly</span>
+    <article class="project-card featured">
+      <div class="featured-left">
+        <span class="card-tag">GPU Architecture · RTL</span>
+        <h3 class="card-title">LFGPU — RISC-V GPU Core</h3>
+        <p class="card-timeline">May 2026 – Present · Personal Project</p>
+        <p class="card-desc" style="margin-bottom:16px;">
+          My personal fork of Cal Poly CARP's GAR GPU (itself built on the open-source tiny-gpu) to
+          learn GPU architecture hands-on. The fork already had a working round-robin warp scheduler
+          and multi-warp execution. My goal: migrate the entire ISA from a custom encoding to standard
+          RV32IM, enabling the GPU to run real compiler-generated kernels and targeting compatibility
+          with the Vortex RISC-V GPU compiler.
+        </p>
+        <p style="font-family:var(--mono);font-size:11px;color:var(--text);letter-spacing:0.08em;margin-bottom:10px;">What I've done so far</p>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+          <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
+            <span style="position:absolute;left:0;color:var(--cyan);">›</span>
+            <strong style="color:var(--text);">Full RV32IM ISA rewrite</strong> — rearchitected instruction decoding across all RTL files (~3000 lines of SV).
+          </li>
+          <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
+            <span style="position:absolute;left:0;color:var(--cyan);">›</span>
+            <strong style="color:var(--text);">CSR register support</strong> — added machine-mode CSRs so kernels can read thread ID for work indexing.
+          </li>
+          <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
+            <span style="position:absolute;left:0;color:var(--cyan);">›</span>
+            <strong style="color:var(--text);">Assembler migration</strong> — rewrote the Rust assembler to emit standard RV32IM encodings; re-assembled all 13 kernel programs in standard RISC-V assembly.
+          </li>
+          <li style="font-size:13px;color:var(--text-muted);line-height:1.6;padding-left:14px;position:relative;">
+            <span style="position:absolute;left:0;color:var(--cyan);">›</span>
+            <strong style="color:var(--text);">Verification</strong> — resolved a deadlock in the warp execution pipeline causing indefinite stalls; validated correctness and recorded baseline performance across all kernels in RTL simulation.
+          </li>
+        </ul>
+        <div class="card-tech">
+          <span class="tech-pill">SystemVerilog</span>
+          <span class="tech-pill">cocotb</span>
+          <span class="tech-pill">iverilog</span>
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">Rust</span>
+          <span class="tech-pill">RISC-V Assembly</span>
+        </div>
+        <a href="https://github.com/hhlong7/LFGPU" target="_blank" rel="noopener" class="card-link" style="margin-top:24px;">View on GitHub</a>
       </div>
-      <a href="https://github.com/hhlong7/LFGPU" target="_blank" rel="noopener" class="card-link">View on GitHub</a>
+      <div class="featured-right">
+        <div class="featured-detail-block">
+          <span class="detail-label">Origin</span>
+          <span class="detail-value">Forked from Cal Poly CARP's GAR GPU, built on top of Adam Maj's open-source tiny-gpu architecture.</span>
+        </div>
+        <div class="featured-detail-block">
+          <span class="detail-label">Goal</span>
+          <span class="detail-value">Full ISA migration from custom encoding → standard RV32IM, targeting compatibility with the Vortex RISC-V GPU compiler.</span>
+        </div>
+        <div class="featured-detail-block">
+          <span class="detail-label">Starting Point</span>
+          <span class="detail-value">Working round-robin warp scheduler · Multi-warp SIMD execution · Parameterizable core/warp/thread counts</span>
+        </div>
+        <div class="featured-detail-block">
+          <span class="detail-label">ISA Migration Scope</span>
+          <span class="detail-value">~3000 lines of SV rearchitected · 13 kernel programs re-assembled · Machine-mode CSR support added</span>
+        </div>
+        <div class="featured-detail-block">
+          <span class="detail-label">Kernels Validated</span>
+          <span class="detail-value">Vector add · Matrix multiply · Load/store · Branch · Hash — all re-assembled in standard RISC-V assembly and verified in RTL simulation</span>
+        </div>
+      </div>
     </article>
+
 
     <!-- 32-bit RISC-V (original Canva project) -->
     <article class="project-card">
