@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Long Hoang Ho · EE + CS at Cal Poly</title>
+<meta name="description" content="Long Hoang Ho, Electrical Engineering student with a CS minor at Cal Poly SLO. RTL design, computer architecture, verification and GPU work, shown as an interactive desk.">
+<meta name="theme-color" content="#12150e">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Long Hoang Ho · EE + CS at Cal Poly">
+<meta property="og:description" content="RTL design, computer architecture, verification and GPU work, shown as an interactive desk.">
+<meta property="og:url" content="https://hhlong7.github.io/">
+<meta property="og:image" content="https://hhlong7.github.io/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Long Hoang Ho · EE + CS at Cal Poly">
+<meta name="twitter:description" content="RTL design, computer architecture, verification and GPU work, shown as an interactive desk.">
+<meta name="twitter:image" content="https://hhlong7.github.io/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="top">
+    <div class="brand"><b>Long Hoang Ho</b><span>EE + CS · Cal Poly SLO</span></div>
+    <div class="hint"><i></i>Click anything on the desk</div>
+  </div>
+
+  <svg id="scene" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Illustration of Long's desk. Each object opens a section of the portfolio.">
+    <defs>
+      <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wall-hi)"/><stop offset="1" style="stop-color:var(--wall)"/></linearGradient>
+      <linearGradient id="gWood" gradientUnits="userSpaceOnUse" x1="0" y1="815" x2="0" y2="1250"><stop offset="0" style="stop-color:var(--wood-hi)"/><stop offset=".5" style="stop-color:var(--wood)"/><stop offset="1" style="stop-color:var(--wood-lo)"/></linearGradient>
+      <linearGradient id="gScreen" gradientUnits="userSpaceOnUse" x1="0" y1="463" x2="0" y2="760"><stop offset="0" style="stop-color:var(--screen-1)"/><stop offset=".48" style="stop-color:var(--screen-2)"/><stop offset=".8" style="stop-color:var(--screen-3)"/><stop offset="1" style="stop-color:var(--screen-4)"/></linearGradient>
+      <radialGradient id="gSun" cx="620" cy="700" r="260" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--screen-3);stop-opacity:.8"/><stop offset="1" style="stop-color:var(--screen-3);stop-opacity:0"/></radialGradient>
+      <linearGradient id="gCone" gradientUnits="userSpaceOnUse" x1="0" y1="454" x2="0" y2="600"><stop offset="0" style="stop-color:var(--amber);stop-opacity:.28"/><stop offset="1" style="stop-color:var(--amber);stop-opacity:0"/></linearGradient>
+      <clipPath id="cScreen"><rect x="463" y="463" width="709" height="297" rx="6"/></clipPath>
+      <pattern id="pKeys" width="15" height="14" patternUnits="userSpaceOnUse"><rect x="1.2" y="1.2" width="12.6" height="11.6" rx="2" style="fill:var(--rail)"/></pattern>
+      <pattern id="pCalc" width="20" height="16" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="16" height="12" rx="3" style="fill:var(--metal-hi)"/></pattern>
+      <pattern id="pCork" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.4" style="fill:var(--cork-dot)"/><circle cx="10" cy="10" r="1.1" style="fill:var(--cork-dot)"/></pattern>
+      <filter id="fBlur" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+    </defs>
+
+    <!-- room: drawn far past the 1600x1200 frame so any window shape still shows wall and desk -->
+    <rect class="c-wall" x="-1600" y="-1600" width="4800" height="2415"/>
+    <polygon points="0,110 560,410 0,410" style="fill:var(--ink)" opacity=".045"/>
+    <rect class="c-wood" x="-1600" y="815" width="4800" height="2400"/>
+    <g class="grain"><line x1="-1600" y1="858" x2="3200" y2="858"/><line x1="-1600" y1="921" x2="3200" y2="921"/><line x1="-1600" y1="1008" x2="3200" y2="1008"/><line x1="-1600" y1="1104" x2="3200" y2="1104"/><line x1="-1600" y1="1190" x2="3200" y2="1190"/></g>
+
+    <!-- metal rail behind the desk -->
+    <g>
+      <rect class="c-rail" x="30" y="403" width="1265" height="18" rx="2"/>
+      <g id="posts"></g>
+    </g>
+
+    <!-- ART SLOT: framed certificate (Experience). Replace the shapes in this group with your drawing, e.g. <image href="certificate.png" x="90" y="120" width="230" height="190"/> -->
+    <g class="hot" id="obj-experience" data-view="experience" data-label="Experience" tabindex="0" role="button" aria-label="Experience, framed certificate">
+      <path d="M205,120 L205,96" style="stroke:var(--metal-hi)" stroke-width="2" fill="none"/>
+      <circle cx="205" cy="94" r="4" class="c-metal-hi"/>
+      <rect x="92" y="126" width="230" height="178" rx="3" style="fill:rgba(0,0,0,.4)"/>
+      <rect x="86" y="118" width="230" height="178" rx="3" class="c-metal" style="stroke:var(--metal-hi)" stroke-width="3"/>
+      <rect x="100" y="132" width="202" height="150" style="fill:var(--paper)"/>
+      <rect x="107" y="139" width="188" height="136" fill="none" style="stroke:var(--paper-ink)" stroke-width="1.2"/>
+      <text x="201" y="168" text-anchor="middle" class="t-disp" font-size="13" font-weight="700" letter-spacing="2.5" style="fill:var(--paper-ink)">CERTIFICATE</text>
+      <text x="201" y="183" text-anchor="middle" class="t-mono" font-size="7" letter-spacing="2" style="fill:var(--paper-ink)">OF EXPERIENCE</text>
+      <rect x="140" y="198" width="122" height="3" rx="1.5" style="fill:var(--paper-ink)" opacity=".5"/>
+      <rect x="152" y="210" width="98" height="3" rx="1.5" style="fill:var(--paper-ink)" opacity=".35"/>
+      <rect x="146" y="222" width="110" height="3" rx="1.5" style="fill:var(--paper-ink)" opacity=".35"/>
+      <path d="M262,262 l-8,22 l9,-5 l7,8 l2,-24 z" style="fill:var(--seal)" opacity=".85"/>
+      <circle cx="268" cy="254" r="14" style="fill:var(--seal)"/>
+      <circle cx="268" cy="254" r="9" fill="none" style="stroke:var(--paper)" stroke-width="1.2" opacity=".7"/>
+    </g>
+
+    <!-- ART SLOT: board (Interests) -->
+    <g class="hot" id="obj-interests" data-view="interests" data-label="Interests" tabindex="0" role="button" aria-label="Interests, corkboard">
+      <rect x="470" y="92" width="520" height="252" rx="6" style="fill:var(--wood-lo)"/>
+      <rect x="482" y="104" width="496" height="228" style="fill:var(--cork)"/>
+      <rect x="482" y="104" width="496" height="228" fill="url(#pCork)"/>
+      <g id="stickies"></g>
+    </g>
+
+    <!-- monitor: curved ultrawide, light bar, webcam -->
+    <g>
+      <polygon points="640,454 1005,454 1060,560 585,560" fill="url(#gCone)"/>
+      <rect x="640" y="440" width="365" height="14" rx="7" class="c-metal-hi"/>
+      <rect x="650" y="445" width="345" height="4" rx="2" style="fill:var(--amber)" opacity=".85"/>
+      <rect x="545" y="428" width="55" height="27" rx="5" class="c-metal"/>
+      <circle cx="572" cy="441" r="6" style="fill:var(--rail)" stroke="var(--metal-hi)"/>
+      <rect x="800" y="770" width="40" height="48" class="c-metal"/>
+      <rect x="760" y="806" width="120" height="10" rx="3" class="c-metal-hi"/>
+      <path d="M455,470 Q455,455 470,455 L1165,455 Q1180,455 1180,470 L1180,760 Q1180,773 1165,773 Q817,790 470,773 Q455,773 455,760 Z" style="fill:var(--rail)" stroke="var(--metal-hi)" stroke-width="2"/>
+      <g clip-path="url(#cScreen)">
+        <rect x="463" y="463" width="709" height="297" fill="url(#gScreen)"/>
+        <rect x="463" y="463" width="709" height="297" fill="url(#gSun)"/>
+        <path d="M463,722 L520,692 L580,708 L650,676 L740,702 L820,682 L900,706 L990,690 L1080,710 L1172,692 L1172,760 L463,760 Z" style="fill:var(--hill)"/>
+        <g id="dockicons"></g>
+        <polygon points="463,463 760,463 600,760 463,760" style="fill:var(--ink)" opacity=".035"/>
+      </g>
+      <text x="817" y="768" text-anchor="middle" class="t-mono" font-size="8" letter-spacing="2" style="fill:var(--ink-dim)">LG</text>
+    </g>
+
+    <!-- ART SLOT: VS Code window on the monitor (Current projects) -->
+    <g class="hot" id="obj-code" data-view="now" data-label="Current projects" tabindex="0" role="button" aria-label="Current projects, VS Code on the monitor">
+      <rect x="500" y="492" width="445" height="250" rx="5" style="fill:var(--vsc-bg);stroke:var(--line)"/>
+      <rect x="500" y="492" width="445" height="16" rx="5" style="fill:var(--vsc-bar)"/>
+      <circle cx="511" cy="500" r="3" style="fill:var(--dot-1)"/><circle cx="520" cy="500" r="3" style="fill:var(--dot-2)"/><circle cx="529" cy="500" r="3" style="fill:var(--dot-3)"/>
+      <text x="722" y="503" text-anchor="middle" class="t-mono" font-size="7" style="fill:var(--ink-dim)">rv32imacz.sv · desk</text>
+      <rect x="500" y="508" width="22" height="220" style="fill:var(--rail)"/>
+      <rect x="506" y="516" width="10" height="10" rx="2" style="fill:var(--metal-hi)"/><rect x="506" y="534" width="10" height="10" rx="2" style="fill:var(--metal-hi)"/><rect x="506" y="552" width="10" height="10" rx="2" style="fill:var(--metal-hi)"/>
+      <rect x="522" y="508" width="100" height="220" style="fill:var(--vsc-side)"/>
+      <text x="530" y="522" class="t-mono" font-size="6.5" letter-spacing="1" style="fill:var(--ink-dim)">EXPLORER</text>
+      <rect x="522" y="530" width="100" height="14" style="fill:var(--vsc-bar)"/>
+      <text x="532" y="540" class="t-mono" font-size="8" style="fill:var(--ink)">rv32imacz</text>
+      <text x="532" y="556" class="t-mono" font-size="8" style="fill:var(--ink-dim)">lfgpu</text>
+      <text x="532" y="572" class="t-mono" font-size="8" style="fill:var(--ink-dim)">ta-app</text>
+      <rect x="622" y="508" width="323" height="18" style="fill:var(--vsc-side)"/>
+      <rect x="622" y="508" width="92" height="18" style="fill:var(--vsc-bg)"/><rect x="622" y="508" width="92" height="2" style="fill:var(--accent)"/>
+      <text x="632" y="520" class="t-mono" font-size="7.5" style="fill:var(--ink)">rv32imacz.sv</text>
+      <text x="724" y="520" class="t-mono" font-size="7.5" style="fill:var(--ink-dim)">lfgpu.sv</text>
+      <g class="t-mono" font-size="8.5">
+        <text x="632" y="542" class="syn-cm">// 7-stage in-order RV32IMAC core</text>
+        <text x="632" y="555"><tspan class="syn-kw">module</tspan><tspan style="fill:var(--ink)"> core_top (</tspan></text>
+        <text x="632" y="568" style="fill:var(--ink)">  <tspan class="syn-kw">input</tspan>  <tspan class="syn-kw">logic</tspan> clk, rst_n,</text>
+        <text x="632" y="581" style="fill:var(--ink)">  <tspan class="syn-kw">output</tspan> <tspan class="syn-kw">logic</tspan> [<tspan class="syn-num">31</tspan>:<tspan class="syn-num">0</tspan>] pc_o</text>
+        <text x="632" y="594" style="fill:var(--ink)">);</text>
+        <text x="632" y="607" class="syn-cm">  // IF1 IF2 ID EX1 EX2 MEM WB</text>
+        <text x="632" y="620"><tspan class="syn-kw">  always_ff</tspan><tspan style="fill:var(--ink)"> @(</tspan><tspan class="syn-kw">posedge</tspan><tspan style="fill:var(--ink)"> clk) </tspan><tspan class="syn-kw">begin</tspan></text>
+        <text x="632" y="633" style="fill:var(--ink)">    <tspan class="syn-kw">if</tspan> (!rst_n) <tspan class="syn-id">pc</tspan> &lt;= RESET_VEC;</text>
+        <text x="632" y="646" style="fill:var(--ink)">    <tspan class="syn-kw">else if</tspan> (redirect) <tspan class="syn-id">pc</tspan> &lt;= target;</text>
+        <text x="632" y="659" style="fill:var(--ink)">    <tspan class="syn-kw">else</tspan> <tspan class="syn-id">pc</tspan> &lt;= <tspan class="syn-id">pc</tspan> + (rvc ? <tspan class="syn-num">2</tspan> : <tspan class="syn-num">4</tspan>);</text>
+        <text x="632" y="672"><tspan class="syn-kw">  end</tspan></text>
+        <text x="632" y="685"><tspan class="syn-kw">endmodule</tspan></text>
+      </g>
+      <rect x="500" y="728" width="445" height="14" style="fill:var(--vsc-status)"/>
+      <text x="508" y="738" class="t-mono" font-size="7" fill="#fff">main · SystemVerilog · 23/23 tests passing</text>
+    </g>
+
+    <!-- ART SLOT: mail app window on the monitor (Get in touch) -->
+    <g class="hot" id="obj-mail" data-view="contact" data-label="Get in touch" tabindex="0" role="button" aria-label="Get in touch, mail app on the monitor">
+      <rect x="962" y="522" width="200" height="218" rx="5" style="fill:var(--mail-bg)"/>
+      <rect x="962" y="522" width="200" height="16" rx="5" style="fill:var(--mail-bar)"/>
+      <circle cx="973" cy="530" r="3" style="fill:var(--dot-1)"/><circle cx="982" cy="530" r="3" style="fill:var(--dot-2)"/><circle cx="991" cy="530" r="3" style="fill:var(--dot-3)"/>
+      <text x="1062" y="533" text-anchor="middle" class="t-mono" font-size="7" style="fill:var(--paper-ink)">Inbox</text>
+      <rect x="962" y="538" width="46" height="202" style="fill:var(--mail-bar)" opacity=".6"/>
+      <rect x="970" y="548" width="30" height="5" rx="2" style="fill:var(--mail-line)"/><rect x="970" y="562" width="24" height="5" rx="2" style="fill:var(--mail-line)"/><rect x="970" y="576" width="28" height="5" rx="2" style="fill:var(--mail-line)"/>
+      <rect x="1008" y="548" width="154" height="40" style="fill:var(--mail-sel)"/>
+      <circle cx="1022" cy="568" r="8" style="fill:var(--accent)"/>
+      <text x="1036" y="565" class="t-mono" font-size="7.5" font-weight="700" style="fill:var(--note-ink)">Say hello</text>
+      <rect x="1036" y="571" width="100" height="4" rx="2" style="fill:var(--mail-line)"/><rect x="1036" y="579" width="70" height="4" rx="2" style="fill:var(--mail-line)"/>
+      <g id="mailrows"></g>
+    </g>
+
+    <!-- LED clock (live) -->
+    <g>
+      <text id="clkGlow" x="777" y="850" text-anchor="middle" class="t-mono" font-size="68" font-weight="700" letter-spacing="3" style="fill:var(--led)" filter="url(#fBlur)" opacity=".7">00:00</text>
+      <text id="clk" x="777" y="850" text-anchor="middle" class="t-mono" font-size="68" font-weight="700" letter-spacing="3" style="fill:var(--led)">00:00</text>
+    </g>
+
+    <!-- desk mat + keyboard -->
+    <rect class="c-mat" x="375" y="880" width="885" height="360" rx="22"/>
+    <g>
+      <rect x="600" y="888" width="295" height="80" rx="9" class="c-metal"/>
+      <rect x="606" y="893" width="283" height="70" rx="5" fill="url(#pKeys)"/>
+    </g>
+    <!-- mouse -->
+    <g>
+      <rect x="992" y="975" width="128" height="106" rx="46" style="fill:var(--metal)" stroke="var(--metal-hi)" stroke-width="2"/>
+      <line x1="1056" y1="982" x2="1056" y2="1018" style="stroke:var(--metal-hi)" stroke-width="2"/>
+    </g>
+    <!-- earbuds cable -->
+    <g fill="none" style="stroke:var(--ink)" stroke-width="2.4" stroke-linecap="round" opacity=".75">
+      <path d="M938,850 C930,930 1000,1000 1080,960 C1130,930 1150,890 1090,880 C1030,872 1010,930 1075,985"/>
+      <path d="M1075,985 C1110,1000 1150,990 1165,960"/>
+    </g>
+    <!-- calculator + glasses -->
+    <g>
+      <g transform="rotate(-18 468 1000)">
+        <rect x="395" y="940" width="130" height="108" rx="7" style="fill:var(--rail)" stroke="var(--metal-hi)" stroke-width="1.5"/>
+        <rect x="405" y="950" width="110" height="22" rx="2" style="fill:var(--leaf-1)" opacity=".7"/>
+        <rect x="402" y="980" width="116" height="62" fill="url(#pCalc)"/>
+      </g>
+      <g fill="none" style="stroke:var(--ink-dim)" stroke-width="2" opacity=".7"><circle cx="478" cy="912" r="16"/><circle cx="530" cy="906" r="16"/><path d="M494,910 Q504,904 514,908"/></g>
+    </g>
+
+    <!-- ART SLOT: books on the table (Coursework, opens a popup instead of a page) -->
+    <g class="hot" id="obj-courses" data-view="courses" data-label="Coursework (popup)" tabindex="0" role="button" aria-label="Relevant coursework, stack of books">
+      <rect x="44" y="1112" width="290" height="54" rx="4" style="fill:#2f4a6d"/>
+      <rect x="56" y="1118" width="270" height="42" rx="2" style="fill:var(--paper)" opacity=".9"/>
+      <rect x="44" y="1112" width="22" height="54" rx="4" style="fill:#2f4a6d"/>
+      <rect x="66" y="1056" width="258" height="54" rx="4" style="fill:#7a3b3b"/>
+      <rect x="78" y="1062" width="238" height="42" rx="2" style="fill:var(--paper)" opacity=".9"/>
+      <rect x="66" y="1056" width="22" height="54" rx="4" style="fill:#7a3b3b"/>
+      <g transform="rotate(-3 200 1018)">
+        <rect x="90" y="1002" width="228" height="52" rx="4" style="fill:#3c6b4f"/>
+        <rect x="102" y="1008" width="208" height="40" rx="2" style="fill:var(--paper)" opacity=".9"/>
+        <rect x="90" y="1002" width="22" height="52" rx="4" style="fill:#3c6b4f"/>
+        <text x="206" y="1033" text-anchor="middle" class="t-disp" font-size="15" font-weight="700" style="fill:var(--paper-ink)">Digital Design</text>
+      </g>
+      <text x="196" y="1145" text-anchor="middle" class="t-disp" font-size="15" font-weight="700" style="fill:var(--paper-ink)">Computer Architecture</text>
+      <text x="200" y="1090" text-anchor="middle" class="t-disp" font-size="15" font-weight="700" style="fill:var(--paper-ink)">Signals and Systems</text>
+    </g>
+
+    <!-- ART SLOT: iPad (links out to your current portfolio, v1) -->
+    <a class="hot" id="obj-v1" href="/v1/" target="_blank" rel="noopener" data-label="v1 portfolio (opens in a new tab)" aria-label="Open the current portfolio, version 1, in a new tab">
+      <rect x="535" y="972" width="390" height="230" rx="20" style="fill:var(--metal-hi)"/>
+      <rect x="549" y="986" width="362" height="202" rx="8" style="fill:var(--old-bg)"/>
+      <text x="572" y="1030" class="t-mono" font-size="14" style="fill:var(--accent)">hhlong7.github.io</text>
+      <text x="572" y="1070" class="t-disp" font-size="28" font-weight="700" style="fill:var(--ink)">Long Hoang Ho</text>
+      <text x="572" y="1094" class="t-mono" font-size="12" style="fill:var(--ink-dim)">EE Portfolio · v1</text>
+      <rect x="572" y="1112" width="180" height="6" rx="3" style="fill:var(--accent)" opacity=".8"/>
+      <rect x="572" y="1128" width="240" height="6" rx="3" style="fill:var(--ink-dim)" opacity=".35"/>
+      <rect x="572" y="1142" width="210" height="6" rx="3" style="fill:var(--ink-dim)" opacity=".35"/>
+      <text x="892" y="1176" text-anchor="end" class="t-mono" font-size="11" style="fill:var(--accent)">OPEN v1 ↗</text>
+      <rect x="640" y="958" width="236" height="9" rx="4.5" style="fill:var(--ink)" opacity=".9"/>
+    </a>
+
+    <!-- headphones -->
+    <g>
+      <path d="M1338,1050 C1330,900 1596,900 1596,1050" fill="none" style="stroke:var(--ink)" stroke-width="18" stroke-linecap="round" opacity=".92"/>
+      <ellipse cx="1342" cy="1060" rx="34" ry="58" style="fill:var(--ink)" opacity=".95"/>
+      <ellipse cx="1600" cy="1060" rx="34" ry="58" style="fill:var(--ink)" opacity=".95"/>
+    </g>
+
+    <!-- ART SLOT: framed picture on the table (About me) -->
+    <g class="hot" id="obj-about" data-view="about" data-label="About me" tabindex="0" role="button" aria-label="About me, framed picture">
+      <path d="M1252,826 L1236,790 L1268,790 Z" class="c-metal"/>
+      <rect x="1194" y="702" width="118" height="128" rx="4" style="fill:var(--wood-lo)" stroke="var(--wood-hi)" stroke-width="3"/>
+      <rect x="1206" y="714" width="94" height="104" style="fill:var(--paper)"/>
+      <rect x="1214" y="722" width="78" height="88" style="fill:var(--screen-2)"/>
+      <circle cx="1253" cy="758" r="16" style="fill:var(--paper)" opacity=".85"/>
+      <path d="M1218,810 C1220,782 1286,782 1288,810 Z" style="fill:var(--paper)" opacity=".85"/>
+      <text x="1253" y="742" text-anchor="middle" class="t-mono" font-size="7" letter-spacing="1" style="fill:var(--ink)" opacity=".7">YOUR PHOTO</text>
+    </g>
+
+    <!-- ART SLOT: desktop bookshelf (Projects done) -->
+    <g class="hot" id="obj-done" data-view="done" data-label="Past projects" tabindex="0" role="button" aria-label="Past projects, desktop bookshelf">
+      <rect x="1330" y="560" width="250" height="270" rx="3" style="fill:var(--wood-lo)"/>
+      <rect x="1342" y="572" width="226" height="118" style="fill:var(--rail)"/>
+      <rect x="1342" y="702" width="226" height="116" style="fill:var(--rail)"/>
+      <g id="books"></g>
+      <rect x="1330" y="690" width="250" height="12" style="fill:var(--wood)"/>
+      <rect x="1330" y="818" width="250" height="12" style="fill:var(--wood)"/>
+      <rect x="1322" y="554" width="266" height="12" rx="3" style="fill:var(--wood-hi)"/>
+    </g>
+
+    <!-- ART SLOT: plants on the riser (Volunteering, leadership and orgs) -->
+    <g class="hot" id="obj-volunteer" data-view="volunteer" data-label="Volunteering and orgs" tabindex="0" role="button" aria-label="Volunteering, leadership and organizations, plants">
+      <rect x="36" y="812" width="12" height="130" class="c-metal"/><rect x="322" y="812" width="12" height="130" class="c-metal"/>
+      <rect x="20" y="792" width="334" height="22" rx="3" style="fill:var(--wood)" stroke="var(--wood-hi)"/>
+      <!-- lantern -->
+      <path d="M118,722 Q140,690 162,722" fill="none" style="stroke:var(--metal-hi)" stroke-width="3"/>
+      <rect x="112" y="722" width="56" height="70" rx="6" style="fill:var(--rail)" stroke="var(--metal-hi)" stroke-width="2"/>
+      <rect x="120" y="734" width="40" height="46" rx="4" style="fill:var(--amber)" opacity=".18"/>
+      <!-- eucalyptus in black vase -->
+      <g id="euc"></g>
+      <path d="M200,790 Q176,712 214,656 L252,656 Q288,712 266,790 Z" style="fill:var(--mat)" stroke="var(--rail-hi)" stroke-width="2"/>
+      <!-- succulents in white pots -->
+      <path d="M204,764 L252,764 L246,816 L210,816 Z" style="fill:var(--ink)" opacity=".92"/>
+      <path d="M262,772 L338,772 L328,834 L272,834 Z" style="fill:var(--ink)" opacity=".92"/>
+      <g id="succ"></g>
+    </g>
+  </svg>
+
+  <div class="tip" id="tip" role="presentation"></div>
+  <div class="veil" id="veil"></div>
+
+  <!-- ===== panels ===== -->
+  <section class="view" id="view-about" role="dialog" aria-modal="true" aria-labelledby="h-about">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">Framed picture · About me</div>
+      <figure class="me" id="me-photo" hidden><img src="assets/me.jpg" alt="Long Hoang Ho" width="240" height="300" decoding="async"></figure>
+      <h2 id="h-about">Hi, I'm Long.</h2>
+      <p class="lede">I'm an Electrical Engineering student at Cal Poly San Luis Obispo with a minor in Computer Science. My work spans RTL design, computer architecture, verification, and applied AI, bridging hardware and software at the systems level.</p>
+      <p>I'm motivated to pursue opportunities in digital design, verification, embedded systems, and semiconductor engineering. I'm especially interested in processor microarchitecture and hardware-software co-design.</p>
+      <p>Outside of class, I'm in Cal Poly's CARP research group working on GPU architecture, I do research with Prof. Andrew Danowitz on LLM inference and KV-cache memory, and I TA for CPE 2300 and 2301.</p>
+      <!-- HOLD: "what I'm looking for" line. Waiting on Long's OK before making it public.
+      <p class="lede">Right now I'm looking for Summer 2027 internships in GPU or CPU architecture, RTL design and verification, and physical design.</p>
+      -->
+      <dl class="facts">
+        <dt>School</dt><dd>Cal Poly San Luis Obispo</dd>
+        <dt>Degree</dt><dd>B.S. Electrical Engineering · CS minor</dd>
+        <dt>Graduating</dt><dd>2028</dd>
+        <dt>Focus</dt><dd>Digital design · Verification · Computer architecture · Embedded systems</dd>
+        <dt>Based in</dt><dd>San Jose, CA</dd>
+        <dt>GitHub</dt><dd><a href="https://github.com/hhlong7" target="_blank" rel="noopener">github.com/hhlong7</a></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="view" id="view-experience" role="dialog" aria-modal="true" aria-labelledby="h-experience">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">Framed certificate · Experience</div>
+      <h2 id="h-experience">Where I've worked</h2>
+      <div class="stack">
+        <div class="card">
+          <h3>Teaching Assistant, CPE 2300 and 2301</h3>
+          <p class="meta">Cal Poly · Fall 2026 to present</p>
+          <p>TA for the CPE 2300 lecture sections and the CPE 2301 lab sections.</p>
+        </div>
+        <div class="card">
+          <h3>Teaching Assistant, Python</h3>
+          <p class="meta">Cal Poly Computer Science and Software Engineering Department · Sep 2025 to Jan 2026 · On-site</p>
+          <p>Supported a biweekly lab section of 20+ students on Python fundamentals: lists, dictionaries, functions, control structures, I/O, and unit testing. Also responsible for grading.</p>
+        </div>
+        <div class="card">
+          <h3>Undergraduate Researcher, LLM inference and KV-cache memory</h3>
+          <p class="meta">Cal Poly · with Prof. Andrew Danowitz · in progress</p>
+          <p>Studying how big the KV cache really gets during LLM inference and whether similar prompts end up in similar places inside the model. Details are on the monitor under current projects.</p>
+        </div>
+        <div class="card">
+          <h3>Researcher, Cal Poly CARP</h3>
+          <p class="meta">Computer Architecture Research Group · GPU architecture · Apr 2026 to present</p>
+          <p>Working on GAR GPU development with the group. My LFGPU fork grew out of this.</p>
+        </div>
+        <div class="card">
+          <h3>Intern, KBR <span class="chip-new">TODO</span></h3>
+          <p class="meta todo">TODO: title and dates</p>
+          <p>Worked on modular data centers and AI infrastructure. My report argued that modular data centers need extending, not replacing, to handle AI workloads, with energy storage acting as the control layer that isolates bursty AI loads from the grid.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-now" role="dialog" aria-modal="true" aria-labelledby="h-now">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">The monitor · VS Code · Current projects</div>
+      <h2 id="h-now">What I'm building right now</h2>
+      <div class="vsc">
+        <div class="vsc-top"><i style="background:var(--dot-1)"></i><i style="background:var(--dot-2)"></i><i style="background:var(--dot-3)"></i><span>current-projects · Visual Studio Code</span></div>
+        <div class="vsc-tabs" role="tablist" aria-label="Current projects">
+          <button class="vsc-tab" role="tab" aria-selected="true" data-pane="p-cpu" id="t-cpu">rv32imacz.md</button>
+          <button class="vsc-tab" role="tab" aria-selected="false" data-pane="p-gpu" id="t-gpu">lfgpu.md</button>
+          <button class="vsc-tab" role="tab" aria-selected="false" data-pane="p-kv" id="t-kv">kv-cache.md</button>
+          <button class="vsc-tab" role="tab" aria-selected="false" data-pane="p-acc" id="t-acc">cpe5350-accel.md</button>
+          <button class="vsc-tab" role="tab" aria-selected="false" data-pane="p-ta" id="t-ta">ta-app.md</button>
+        </div>
+        <div class="vsc-pane" id="p-cpu" role="tabpanel" aria-labelledby="t-cpu">
+          <h3>RV32IMACZ · my RISC-V CPU</h3>
+          <p class="meta">Passion project · started Mar 2026 · still growing</p>
+          <p>A simulation-first RISC-V processor built around a seven-stage in-order core in SystemVerilog. It implements RV32IMAC plus Zicsr/Zifencei, with a two-slot dual-issue front end, branch prediction (BHT, BTB, RAS), a two-level data cache hierarchy, a store buffer, atomics (LR/SC, AMOs), compressed instruction expansion, and full CSR, trap and timer-interrupt handling.</p>
+          <p>It evolved from a 5-stage baseline, with each addition tracked against measurable performance. Software bring-up includes booting FreeRTOS and running CoreMark in simulation.</p>
+          <div class="stat"><span><b>23/23</b> directed tests</span><span><b>16/16</b> seeded random runs</span><span><b>914</b> vs 1047 cycles (7-stage vs 5-stage)</span></div>
+          <div class="card ph"><h3>Out-of-order core <span class="chip-new">TODO</span></h3><p>TODO: I've been building an out-of-order core in the same repo. Waiting on Long's wording for what it does and where it's at.</p></div>
+          <p style="margin-top:12px">After that, the plan is to take it through a backend flow, RTL to layout, as a personal project.</p>
+          <ul class="tags"><li>SystemVerilog</li><li>iverilog</li><li>Verilator</li><li>Python</li><li>RISC-V Assembly</li><li>FreeRTOS</li></ul>
+          <p style="margin-top:14px"><a class="btn" href="https://github.com/hhlong7/RV32IMACZ" target="_blank" rel="noopener">View on GitHub ↗</a></p>
+        </div>
+        <div class="vsc-pane" id="p-gpu" role="tabpanel" aria-labelledby="t-gpu" hidden>
+          <h3>LFGPU · RISC-V GPU core</h3>
+          <p class="meta">Personal project · May 2026 to present</p>
+          <p>My fork of Cal Poly CARP's GAR GPU (itself built on the open-source tiny-gpu) to learn GPU architecture hands-on. The goal is to migrate the whole ISA from a custom encoding to standard RV32IM, so the GPU can run real compiler-generated kernels and target the Vortex RISC-V GPU compiler.</p>
+          <ul style="color:var(--ink-dim);padding-left:18px;margin:0 0 12px;max-width:64ch">
+            <li>Full RV32IM ISA rewrite across all RTL files (about 3000 lines of SystemVerilog).</li>
+            <li>Machine-mode CSR support so kernels can read their thread ID.</li>
+            <li>Rewrote the Rust assembler for standard RV32IM encodings and re-assembled all 13 kernels.</li>
+            <li>Fixed a warp-pipeline deadlock and recorded baseline performance in RTL simulation.</li>
+          </ul>
+          <ul class="tags"><li>SystemVerilog</li><li>cocotb</li><li>iverilog</li><li>Python</li><li>Rust</li><li>RISC-V Assembly</li></ul>
+          <p style="margin-top:14px"><a class="btn" href="https://github.com/hhlong7/LFGPU" target="_blank" rel="noopener">View on GitHub ↗</a></p>
+        </div>
+        <div class="vsc-pane" id="p-kv" role="tabpanel" aria-labelledby="t-kv" hidden>
+          <h3>KV-cache footprint and semantic locality</h3>
+          <p class="meta">Research in progress · with Prof. Andrew Danowitz · Cal Poly</p>
+          <p>When an LLM generates text it keeps a KV cache, and that cache eats a lot of memory. I'm looking at how big it actually gets and whether there's structure in it we could take advantage of.</p>
+          <ul style="color:var(--ink-dim);padding-left:18px;margin:0 0 12px;max-width:64ch">
+            <li>Inspected the KV cache tensors on Qwen2.5-0.5B-Instruct (grouped-query attention) and GPT-2 (multi-head attention).</li>
+            <li>Checked the measured cache size against the formula you get from the model config, across a range of context lengths.</li>
+            <li>Now: testing whether prompts that mean the same thing converge to similar hidden states as you go deeper through the layers.</li>
+          </ul>
+          <p>Still early, so no big conclusions yet.</p>
+          <ul class="tags"><li>Python</li><li>PyTorch</li><li>Hugging Face</li><li>LLM inference</li></ul>
+        </div>
+        <div class="vsc-pane" id="p-acc" role="tabpanel" aria-labelledby="t-acc" hidden>
+          <h3>Multi-tenant systolic-array DNN accelerator</h3>
+          <p class="meta">CPE 5350 final project · team project · Fall 2026</p>
+          <p>We're implementing the multi-tenant systolic-array accelerator from Reshadi and Gregg (PDP 2023) in SystemVerilog and running it on a Zybo Z7-20.</p>
+          <div class="card ph"><h3>My part <span class="chip-new">TODO</span></h3><p>TODO: Waiting on Long's wording for what he owns on the team.</p></div>
+          <ul class="tags"><li>SystemVerilog</li><li>Zybo Z7-20</li><li>Vivado</li><li>Systolic arrays</li></ul>
+        </div>
+        <div class="vsc-pane" id="p-ta" role="tabpanel" aria-labelledby="t-ta" hidden>
+          <h3>TA app · help for students who are waiting</h3>
+          <p class="meta">Personal project · web app · early stage</p>
+          <p>A tool a TA can use for any class. While students wait for help, it walks them through problems step by step with an interactive interface instead of a plain text chat. It also tracks which topics students struggle with, so the TA knows where to focus.</p>
+          <p>It comes from my experience as a TA in intro Python and digital design labs, where there are never quite enough TAs to go around.</p>
+          <ul class="tags"><li>Web app</li><li>Interactive UI</li><li>AI</li></ul>
+        </div>
+        <div class="vsc-status"><span>main</span><span>0 errors</span><span>UTF-8</span></div>
+      </div>
+      <!-- HOLD: "Up next" card. Topics aren't final; waiting on Long's OK before removing `hidden`. -->
+      <div class="card" id="up-next" style="margin-top:14px" hidden>
+        <h3>Up next <span class="chip-new">Planned</span></h3>
+        <p class="meta">Plans, not results</p>
+        <ul style="color:var(--ink-dim);padding-left:18px;margin:0;max-width:64ch">
+          <li>A special-topics GPU project with Prof. Pantoja.</li>
+          <li>An accelerator project, an FFT engine, with Prof. Danowitz in Spring 2027.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-done" role="dialog" aria-modal="true" aria-labelledby="h-done">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">Desktop bookshelf · Projects done</div>
+      <h2 id="h-done">Finished projects</h2>
+      <div class="grid">
+        <div class="card" id="bk-mcpu" tabindex="-1"><h3>32-bit RISC-V microprocessor</h3><p class="meta">Sep 2025 to Mar 2026</p><p>An RTL implementation of a RISC-V datapath, from a multicycle baseline to a 5-stage pipeline with hazard detection and forwarding. Verified in Vivado simulation and deployed on a Basys3 FPGA.</p><ul class="tags"><li>SystemVerilog</li><li>Vivado</li><li>Basys3</li></ul><p style="margin:12px 0 0"><a href="https://github.com/hhlong7/RISC-V-MCPU" target="_blank" rel="noopener">GitHub ↗</a></p></div>
+        <div class="card" id="bk-agent" tabindex="-1"><h3>Limited-memory inductive reasoning agent</h3><p class="meta">Spring 2026 · CSC 480 team project</p><p>An agent that learns under a fixed memory budget by compressing repeated facts into first-order logic rules (Z3), then answers queries about facts it never stored. Benchmarked against three baseline agents on 8 datasets.</p><ul class="tags"><li>Python</li><li>Z3</li><li>Horn clauses</li></ul><p style="margin:12px 0 0"><a href="https://github.com/hhlong7/Limited-Memory-Inductive-Reasoning-Agent" target="_blank" rel="noopener">GitHub ↗</a></p></div>
+        <div class="card" id="bk-seq" tabindex="-1"><h3>FPGA sequence recognizer</h3><p class="meta">Jul to Aug 2025</p><p>A memory-based logic game on a Basys3 FPGA that records, stores and validates input sequences across difficulty levels, with optimized FSMs, D flip-flop storage and seven-segment feedback.</p><ul class="tags"><li>SystemVerilog</li><li>Vivado</li><li>XDC</li></ul></div>
+        <div class="card" id="bk-pcba" tabindex="-1"><h3>Rube Goldberg machine PCBA</h3><p class="meta">2024 to 2025</p><p>A custom PCB control system for an automated Rube Goldberg machine: schematic capture, layout, component selection, soldering, and bring-up with sensors and actuators.</p><ul class="tags"><li>PCB design</li><li>Fusion</li><li>Arduino</li></ul></div>
+        <div class="card" id="bk-dac" tabindex="-1"><h3>Audio DAC converter</h3><p class="meta">2024 to 2025</p><p>An audio digital-to-analog converter circuit, focused on signal integrity, filter design and frequency response, verified in SPICE before hardware.</p><ul class="tags"><li>SPICE</li><li>Analog</li></ul></div>
+        <div class="card" id="bk-fpt" tabindex="-1"><h3>FPT embedded systems training</h3><p class="meta">Summer 2026 · FPT</p><p class="todo">TODO (draft, confirm): A summer course in modern C++ for embedded work, from memory layout and pointers through OOP, templates, unit testing and design patterns, wrapped up with an IoT robot mini project and a capstone.</p><ul class="tags"><li>C++</li><li>Embedded</li><li>Unit testing</li></ul><p style="margin:12px 0 0"><a href="https://github.com/hhlong7/FPT" target="_blank" rel="noopener">GitHub ↗</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-volunteer" role="dialog" aria-modal="true" aria-labelledby="h-volunteer">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">Plants · Volunteering, leadership, orgs</div>
+      <h2 id="h-volunteer">Community</h2>
+      <h4>Organizations</h4>
+      <div class="grid">
+        <div class="card"><h3>Cal Poly CARP</h3><p class="meta">Member · Computer Architecture Research · Apr 2026 to present</p><p>Contributed to GAR GPU development.</p></div>
+        <div class="card"><h3>IEEE</h3><p class="meta">Member</p><p>Part of the TCCA, TCuARCH, CASS, and Computer Society communities.</p></div>
+      </div>
+      <h4>Volunteering</h4>
+      <div class="grid">
+        <div class="card"><h3>Viet Career Guide</h3><p class="meta">Volunteer · Education · May to Aug 2025</p></div>
+        <div class="card"><h3>Saint Vincent de Paul</h3><p class="meta">Volunteer staff · Social services · Sep 2023 to Feb 2024</p></div>
+      </div>
+      <h4>Leadership</h4>
+      <div class="card ph"><h3>Leadership <span class="chip-new">TODO</span></h3><p>TODO: Waiting on Long for leadership roles (title, organization, dates, one line on what he led).</p></div>
+    </div>
+  </section>
+
+  <section class="view" id="view-interests" role="dialog" aria-modal="true" aria-labelledby="h-interests">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">The board · Interests</div>
+      <h2 id="h-interests">What I keep coming back to</h2>
+      <div class="notes">
+        <button type="button" class="note" style="background:var(--note-1);--r:-1.5deg" aria-expanded="false"><b>Computer architecture</b><span>Pipelines, caches, and the place where hardware meets software.</span><span class="more">It's the reason I built RV32IMACZ. Every feature I add, like branch prediction or a second cache level, gets measured against cycle counts, so I can actually see what each idea buys.</span></button>
+        <button type="button" class="note" style="background:var(--note-2);--r:1.2deg" aria-expanded="false"><b>Digital design + RTL</b><span>SystemVerilog and FPGAs, with designs I can simulate and measure.</span><span class="more">I like designs I can put on a board. That started with a sequence game on a Basys3 and now it's a systolic-array accelerator on a Zybo Z7-20.</span></button>
+        <button type="button" class="note" style="background:var(--note-3);--r:-.8deg" aria-expanded="false"><b>Verification</b><span>Directed tests, seeded random runs, and Python testbenches.</span><span class="more">A design only counts once I can prove it works. For my CPU that means 23 directed tests and 16 seeded random runs, plus cocotb testbenches on the GPU side.</span></button>
+        <button type="button" class="note" style="background:var(--note-4);--r:1.6deg" aria-expanded="false"><b>GPU architecture</b><span>Learning it hands-on through CARP's GAR GPU and my LFGPU fork.</span><span class="more">With CARP I work on the GAR GPU, and on my own I'm moving my LFGPU fork over to standard RV32IM so it can run real compiler-generated kernels.</span></button>
+        <button type="button" class="note" style="background:var(--note-5);--r:-1.2deg" aria-expanded="false"><b>Applied AI</b><span>Reasoning agents, and tools that help people learn.</span><span class="more">I built a reasoning agent that learns under a fixed memory budget for CSC 480, and I'm working on a TA app that walks waiting students through problems step by step.</span></button>
+        <button type="button" class="note" style="background:var(--note-6);--r:.9deg" aria-expanded="false"><b>AI ethics + fairness</b><span>How technical systems affect the people who use them.</span><span class="more">TODO (draft, confirm): The more I work on AI tools, the more I care about who they work well for and who gets left out.</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-contact" role="dialog" aria-modal="true" aria-labelledby="h-contact">
+    <div class="bar"><button class="back" data-close>← Back to the desk</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">The monitor · Mail · Get in touch</div>
+      <h2 id="h-contact">Say hello</h2>
+      <div class="mail">
+        <div class="mrow"><label>To</label><div class="v"><span id="mail-addr">hhlong605@gmail.com</span><button class="btn" id="copy-mail" type="button">Copy email</button><a class="btn ghost" href="mailto:hhlong605@gmail.com">Open in mail app</a></div></div>
+        <div class="mrow"><label>Subject</label><div class="v">Internships, research, projects, or just hi</div></div>
+        <div class="mrow"><label>GitHub</label><div class="v"><a href="https://github.com/hhlong7" target="_blank" rel="noopener">github.com/hhlong7</a></div></div>
+        <div class="mrow"><label>LinkedIn</label><div class="v"><a href="https://www.linkedin.com/in/longhh605/" target="_blank" rel="noopener">linkedin.com/in/longhh605</a></div></div>
+        <div class="mrow" id="resume-row"><label>Resume</label><div class="v"><a class="btn ghost" id="resume-link" href="assets/resume.pdf" download>Download resume (PDF)</a></div></div>
+        <div class="mrow"><label>Based in</label><div class="v">San Jose, CA</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="view pop" id="view-courses" role="dialog" aria-modal="true" aria-labelledby="h-courses">
+    <div class="bar"><button class="back" data-close>Close</button><span class="kbd">Esc to close</span></div>
+    <div class="in">
+      <div class="eyebrow">Books on the table · Relevant coursework</div>
+      <h2 id="h-courses">Coursework</h2>
+      <h4>Electrical engineering</h4>
+      <div class="grid">
+        <div class="card"><h3>EE 335 · Electromagnetic Fields and Transmission</h3><p>Wave propagation, transmission lines, Maxwell's equations, RF fundamentals.</p></div>
+        <div class="card"><h3>EE 255 · Electromagnetic Energy Conversion</h3><p>Electric machines, transformers, motors, generators, power conversion.</p></div>
+        <div class="card"><h3>EE 2328 · Signals and Systems</h3><p>Continuous and discrete-time systems, Fourier and Laplace transforms, convolution.</p></div>
+        <div class="card"><h3>EE 3306 · Electronics 1</h3><p>Diodes, BJTs, MOSFETs, amplifier circuits, biasing.</p></div>
+        <div class="card"><h3>EE 400 · Special Problems</h3><p>Independent research and advanced project work.</p></div>
+      </div>
+      <h4>Computer engineering</h4>
+      <div class="grid">
+        <div class="card"><h3>CPE 333 · Computer Architecture</h3><p>Processor design, pipelining, memory hierarchy, performance analysis.</p></div>
+        <div class="card"><h3>CPE 233 · Computer Design and Assembly Language</h3><p>Digital logic design, datapath construction, low-level assembly.</p></div>
+        <div class="card"><h3>CPE 5350 · Digital System Design<span class="chip-new">In progress</span></h3><p>Advanced RTL design, FSMs, synthesis, FPGA implementation.</p></div>
+        <div class="card"><h3>CPE 5300 · Computer Microarchitecture<span class="chip-new">In progress</span></h3><p>Processor microarchitecture, studied through research papers.</p></div>
+      </div>
+      <h4>Spring 2027 <span class="chip-new">Planned</span></h4>
+      <div class="grid">
+        <div class="card"><h3>EE 3329 · Cyber-Physical Systems</h3></div>
+        <div class="card"><h3>EE 5515 · Advanced DSP</h3></div>
+        <div class="card"><h3>CPE 4190 · Applied Parallel Computing</h3></div>
+      </div>
+      <h4>Computer science and math</h4>
+      <div class="grid">
+        <div class="card"><h3>CSC 480 · Artificial Intelligence</h3><p>Search, planning, MDPs, Bayesian networks, machine learning fundamentals.</p></div>
+        <div class="card"><h3>CSC 357 · Systems Programming</h3><p>C, memory management, Unix system calls, processes, concurrency.</p></div>
+        <div class="card"><h3>CSC 202 · Data Structures</h3><p>Algorithms, complexity analysis, trees, graphs, sorting, hashing.</p></div>
+        <div class="card"><h3>CSC 3001 · Modern Application Development<span class="chip-new">In progress</span></h3><p>Full-stack web development, APIs, frameworks, engineering practices.</p></div>
+        <div class="card"><h3>STAT 3310 · Probability and Random Processes</h3><p>Probability theory, random variables, distributions, stochastic processes.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<nav class="dock" aria-label="Everything on the desk">
+  <button type="button" data-open="about">About me</button>
+  <button type="button" data-open="experience">Experience</button>
+  <button type="button" data-open="now">Current projects</button>
+  <button type="button" data-open="done">Past projects</button>
+  <button type="button" data-open="volunteer">Volunteering and orgs</button>
+  <button type="button" data-open="interests">Interests</button>
+  <button type="button" data-open="courses">Coursework</button>
+  <button type="button" data-open="contact">Contact</button>
+  <a href="/v1/" target="_blank" rel="noopener">v1 site ↗</a>
+</nav>
+
+<script src="js/desk.js"></script>
+</body>
+</html>
