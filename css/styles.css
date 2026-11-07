@@ -1,4 +1,4 @@
-/* Layout concept: one full-screen illustrated desk (SVG). Each object is a .hot group.
+/* Layout concept: one full-screen photo of the desk inside an SVG. Each object is a .hot group.
    Click zooms the camera (SVG viewBox) onto it, then a content panel fades in beside it. */
 :root{
   --wall:#1d2119; --wall-hi:#2b3025; --wall-lo:#12150e;
@@ -32,7 +32,10 @@ button{font:inherit;color:inherit}
 
 /* stage */
 .stage{position:relative;flex:1;min-height:0;overflow:hidden;background:var(--wall-lo)}
-#scene{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;touch-action:none;-webkit-user-select:none;user-select:none}
+.hint-phone{display:none}
+.hint-drag{display:none}
+body.can-pan .hint-drag{display:inline}
 .top{position:absolute;z-index:5;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:16px max(16px,env(safe-area-inset-left,0px)) 0 max(16px,env(safe-area-inset-left,0px));pointer-events:none}
 .brand{display:flex;flex-direction:column;gap:2px}
 .brand b{font:700 20px/1 var(--f-display);letter-spacing:-.01em}
@@ -41,28 +44,36 @@ button{font:inherit;color:inherit}
 .hint i{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;animation:beat 2s ease-in-out infinite}
 body.touched .hint{opacity:0;transition:opacity .4s}
 
-/* scene art */
-.c-wall{fill:url(#gWall)} .c-wood{fill:url(#gWood)} .grain{stroke:var(--wood-lo);stroke-width:2;opacity:.35}
-.c-rail{fill:var(--rail)} .c-metal{fill:var(--metal)} .c-metal-hi{fill:var(--metal-hi)}
-.c-mat{fill:var(--mat)} .ink-t{fill:var(--ink)}
+/* scene: one photo of the real desk, with traced (invisible) hit shapes and live overlays */
+.stage::before{content:"";position:absolute;inset:-60px;background:url(../assets/art/desk-1200.webp) center/cover no-repeat;filter:blur(30px) brightness(.42) saturate(.9);transform:scale(1.1)}
+#photo{opacity:0;transition:opacity .6s ease}
+.photo-ready #photo{opacity:1}
+.photo-failed::after{content:"The desk photo didn't load. Everything is still in the buttons below.";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:500 14px var(--f-body);color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;z-index:4;text-align:center;max-width:80%}
 #scene text{white-space:pre}
 .t-mono{font-family:var(--f-mono)} .t-disp{font-family:var(--f-display)} .t-hand{font-family:var(--f-hand)}
-.stem{stroke:var(--stem);stroke-width:3;stroke-linecap:round}
-.l1{fill:var(--leaf-1)} .l2{fill:var(--leaf-2)} .l3{fill:var(--leaf-3)}
 .syn-kw{fill:var(--syn-kw)} .syn-cm{fill:var(--syn-cm)} .syn-id{fill:var(--syn-id)} .syn-num{fill:var(--syn-num)}
-.hot{cursor:pointer;outline:none;transition:opacity .5s,filter .25s,transform .3s cubic-bezier(.2,.7,.2,1);transform-box:fill-box;transform-origin:50% 100%}
-.hot .ring{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:7 6;opacity:0;transition:opacity .2s;pointer-events:none}
-.hot:hover,.hot:focus-visible{filter:drop-shadow(0 0 14px rgba(98,224,164,.45));transform:translateY(-5px)}
-.hot:hover .ring,.hot:focus-visible .ring,.debug .ring{opacity:.9}
+.hot{cursor:pointer;outline:none}
+.shape{fill:transparent;stroke:transparent;stroke-width:2.5;vector-effect:non-scaling-stroke;transition:stroke .2s}
+.hot:hover .shape,.hot:focus-visible .shape{stroke:rgba(255,246,226,.85)}
+.hot:focus-visible .shape{stroke:var(--accent);stroke-width:3}
+.debug .shape,.debug .spine{stroke:var(--accent);stroke-dasharray:6 5}
+#dim{opacity:0;transition:opacity .22s ease}
+#scene.spot #dim{opacity:.48}
+.book{cursor:pointer}
+.spine{fill:transparent;stroke:transparent;stroke-width:1.5;vector-effect:non-scaling-stroke;transition:stroke .15s}
+.book:hover .spine{stroke:rgba(255,236,190,.95)}
+.seg{fill:#eef3ff;opacity:0;transition:opacity .3s}
+.seg.on{opacity:1}
+#flicker{transition:opacity .09s}
 .pulse-dot{fill:var(--accent);pointer-events:none}
 .pulse-halo{fill:none;stroke:var(--accent);stroke-width:2;pointer-events:none;transform-box:fill-box;transform-origin:center;animation:halo 2.4s ease-out infinite}
 body.touched .pulse-dot,body.touched .pulse-halo{display:none}
-.zoomed .hot{transform:none;filter:none;pointer-events:none}
-.zoomed .hot:not(.active){opacity:.22}
-.zoomed .hot .ring,.zoomed .pulse-dot,.zoomed .pulse-halo{display:none}
+.zoomed .hot{pointer-events:none}
+.zoomed .pulse-dot,.zoomed .pulse-halo,.zoomed #dim{display:none}
 @keyframes beat{50%{opacity:.35}}
 @keyframes halo{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.4);opacity:0}}
-.colon{animation:beat 2s steps(1) infinite}
+.colon{animation:blink 2s steps(1) infinite}
+@keyframes blink{50%{opacity:.15}}
 
 .tip{position:absolute;z-index:6;transform:translate(-50%,-100%);background:var(--panel);border:1px solid var(--line);padding:4px 11px;border-radius:999px;font:500 13px var(--f-body);pointer-events:none;opacity:0;transition:opacity .15s;white-space:nowrap}
 .tip.on{opacity:1}
@@ -108,8 +119,6 @@ dl.facts dd{margin:0}
 .todo{color:var(--amber)}
 .me{float:right;margin:4px 0 12px 18px;width:min(200px,38%)}
 .me img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--line)}
-.book{cursor:pointer}
-.book:hover rect:first-child{filter:brightness(1.15)}
 .flash{animation:flash 1.4s ease-out}
 @keyframes flash{0%{box-shadow:0 0 0 2px var(--accent)}100%{box-shadow:0 0 0 2px transparent}}
 .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#0b1511;border:0;border-radius:8px;padding:8px 14px;font:600 13px var(--f-body);cursor:pointer;text-decoration:none}
@@ -150,13 +159,17 @@ dl.facts dd{margin:0}
   .view:not(.pop){left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));width:auto;top:auto;height:62%;bottom:12px;transform:translateY(40px)}
   .view:not(.pop).on{transform:none}
   .in{padding:16px 16px 26px}
-  .hint{display:none}
+  .hint{position:fixed;top:auto;bottom:calc(66px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);white-space:nowrap;background:rgba(10,12,14,.72);padding:6px 12px;border-radius:999px}
+  .hint-wide{display:none}
+  .hint-phone{display:inline}
+  body.panned .hint{opacity:0;transition:opacity .4s}
   dl.facts{grid-template-columns:1fr;gap:2px 0}
   dl.facts dd{margin-bottom:8px}
   .mrow{grid-template-columns:1fr;gap:2px}
 }
 @media (prefers-reduced-motion:reduce){
-  .view,.view.on,.veil,.hot{transition:none}
+  .view,.view.on,.veil,#dim,#photo{transition:none}
   .hint i,.colon{animation:none}
+  #flicker{display:none}
   .pulse-halo{display:none}
 }

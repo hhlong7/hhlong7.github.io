@@ -12,101 +12,61 @@
 <meta property="og:title" content="Long Hoang Ho · EE + CS at Cal Poly">
 <meta property="og:description" content="RTL design, computer architecture, verification and GPU work, shown as an interactive desk.">
 <meta property="og:url" content="https://hhlong7.github.io/">
-<meta property="og:image" content="https://hhlong7.github.io/assets/og-image.png">
+<meta property="og:image" content="https://hhlong7.github.io/assets/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Long Hoang Ho · EE + CS at Cal Poly">
 <meta name="twitter:description" content="RTL design, computer architecture, verification and GPU work, shown as an interactive desk.">
-<meta name="twitter:image" content="https://hhlong7.github.io/assets/og-image.png">
+<meta name="twitter:image" content="https://hhlong7.github.io/assets/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@600&display=swap">
+<link rel="preload" as="image" href="assets/art/desk-2400.webp" type="image/webp" fetchpriority="high" media="(min-width: 701px)">
+<link rel="preload" as="image" href="assets/art/desk-1200.webp" type="image/webp" fetchpriority="high" media="(max-width: 700px)">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <div class="stage" id="stage">
   <div class="top">
     <div class="brand"><b>Long Hoang Ho</b><span>EE + CS · Cal Poly SLO</span></div>
-    <div class="hint"><i></i>Click anything on the desk</div>
+    <div class="hint"><i></i><span class="hint-wide">Click anything on the desk</span><span class="hint-phone">Tap anything<span class="hint-drag"> · drag to look around</span></span></div>
   </div>
 
-  <svg id="scene" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Illustration of Long's desk. Each object opens a section of the portfolio.">
+  <svg id="scene" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Photo of Long's desk. Each object opens a section of the portfolio.">
     <defs>
-      <linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--wall-hi)"/><stop offset="1" style="stop-color:var(--wall)"/></linearGradient>
-      <linearGradient id="gWood" gradientUnits="userSpaceOnUse" x1="0" y1="815" x2="0" y2="1250"><stop offset="0" style="stop-color:var(--wood-hi)"/><stop offset=".5" style="stop-color:var(--wood)"/><stop offset="1" style="stop-color:var(--wood-lo)"/></linearGradient>
-      <linearGradient id="gScreen" gradientUnits="userSpaceOnUse" x1="0" y1="463" x2="0" y2="760"><stop offset="0" style="stop-color:var(--screen-1)"/><stop offset=".48" style="stop-color:var(--screen-2)"/><stop offset=".8" style="stop-color:var(--screen-3)"/><stop offset="1" style="stop-color:var(--screen-4)"/></linearGradient>
-      <radialGradient id="gSun" cx="620" cy="700" r="260" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--screen-3);stop-opacity:.8"/><stop offset="1" style="stop-color:var(--screen-3);stop-opacity:0"/></radialGradient>
-      <linearGradient id="gCone" gradientUnits="userSpaceOnUse" x1="0" y1="454" x2="0" y2="600"><stop offset="0" style="stop-color:var(--amber);stop-opacity:.28"/><stop offset="1" style="stop-color:var(--amber);stop-opacity:0"/></linearGradient>
-      <clipPath id="cScreen"><rect x="463" y="463" width="709" height="297" rx="6"/></clipPath>
-      <pattern id="pKeys" width="15" height="14" patternUnits="userSpaceOnUse"><rect x="1.2" y="1.2" width="12.6" height="11.6" rx="2" style="fill:var(--rail)"/></pattern>
-      <pattern id="pCalc" width="20" height="16" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="16" height="12" rx="3" style="fill:var(--metal-hi)"/></pattern>
-      <pattern id="pCork" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.4" style="fill:var(--cork-dot)"/><circle cx="10" cy="10" r="1.1" style="fill:var(--cork-dot)"/></pattern>
-      <filter id="fBlur" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+      <linearGradient id="gDesk" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16213a"/><stop offset=".55" stop-color="#2b3550"/><stop offset="1" stop-color="#5a4a4a"/></linearGradient>
+      <linearGradient id="gGlass" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".10"/><stop offset=".35" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>
+      <linearGradient id="gPad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>
+      <clipPath id="cScreen"><path d="M468,462 Q468,454 476,454 L1170,454 Q1178,454 1178,462 L1176,744 Q823,760 470,750 Z"/></clipPath>
+      <clipPath id="cPad"><rect x="541" y="986" width="377" height="174" rx="10"/></clipPath>
+      <filter id="fGlow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      <mask id="mDim" maskUnits="userSpaceOnUse" x="-2000" y="-2000" width="5600" height="5200"><rect x="-2000" y="-2000" width="5600" height="5200" fill="#fff"/><use id="dimHole" href="#none" fill="#000"/></mask>
+      <linearGradient id="gFadeV" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1200"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".035" stop-color="#fff"/><stop offset=".965" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="gFadeH" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".025" stop-color="#fff"/><stop offset=".975" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <mask id="mFadeV" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="1200"><rect width="1600" height="1200" fill="url(#gFadeV)"/></mask>
+      <mask id="mFadeH" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="1200"><rect width="1600" height="1200" fill="url(#gFadeH)"/></mask>
     </defs>
 
-    <!-- room: drawn far past the 1600x1200 frame so any window shape still shows wall and desk -->
-    <rect class="c-wall" x="-1600" y="-1600" width="4800" height="2415"/>
-    <polygon points="0,110 560,410 0,410" style="fill:var(--ink)" opacity=".045"/>
-    <rect class="c-wood" x="-1600" y="815" width="4800" height="2400"/>
-    <g class="grain"><line x1="-1600" y1="858" x2="3200" y2="858"/><line x1="-1600" y1="921" x2="3200" y2="921"/><line x1="-1600" y1="1008" x2="3200" y2="1008"/><line x1="-1600" y1="1104" x2="3200" y2="1104"/><line x1="-1600" y1="1190" x2="3200" y2="1190"/></g>
+    <!-- The photo. JS swaps in a sharper file for the screen size, and the 4032px one after the first zoom. -->
+    <g mask="url(#mFadeV)"><g mask="url(#mFadeH)">
+    <image id="photoLo" href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAYACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDQk0dFjDhjjb2z1/Cs64tvLiJ+b77AE5zjHFMg1SOC5haWYrCNxlyuQMEY57f/AFq0LC+8PzRRSTtH50nAyOCO2amcQi2c+6bpSvOOev8A+qs2/cwg7Tjvmuz1dtC+wzvDLZmcL8seQa85nBfe5fjOQD2+lJRsiua7LMpmcuvlsFZvm7ZqfSbSJr1Vkka3QA4ZmwRRRRzO5XKh99BHbXTuAblC2Q4brUUwsZ/nkEkcruSzBQRg+g7UUUuZ3Hyqx//Z" x="0" y="0" width="1600" height="1200" preserveAspectRatio="none"/>
+    <image id="photo" x="0" y="0" width="1600" height="1200" preserveAspectRatio="none"/>
+    </g></g>
 
-    <!-- metal rail behind the desk -->
-    <g>
-      <rect class="c-rail" x="30" y="403" width="1265" height="18" rx="2"/>
-      <g id="posts"></g>
+    <!-- Live monitor: a desktop with VS Code and a mail window, drawn over the real screen -->
+    <g id="monitor" clip-path="url(#cScreen)">
+      <rect x="460" y="450" width="725" height="310" fill="url(#gDesk)"/>
+      <path d="M460,712 L540,690 L610,702 L700,676 L790,698 L880,680 L960,700 L1050,684 L1130,700 L1185,690 L1185,760 L460,760 Z" fill="#141a26" opacity=".85"/>
+      <rect x="460" y="454" width="725" height="9" fill="#0d1018" opacity=".7"/>
+      <text x="482" y="461" class="t-mono" font-size="6" fill="#cfd6e4" opacity=".8">Code   File   Edit   View</text>
+      <text id="menuClock" x="1168" y="461" text-anchor="end" class="t-mono" font-size="6" fill="#cfd6e4" opacity=".8"></text>
     </g>
-
-    <!-- ART SLOT: framed certificate (Experience). Replace the shapes in this group with your drawing, e.g. <image href="certificate.png" x="90" y="120" width="230" height="190"/> -->
-    <g class="hot" id="obj-experience" data-view="experience" data-label="Experience" tabindex="0" role="button" aria-label="Experience, framed certificate">
-      <path d="M205,120 L205,96" style="stroke:var(--metal-hi)" stroke-width="2" fill="none"/>
-      <circle cx="205" cy="94" r="4" class="c-metal-hi"/>
-      <rect x="92" y="126" width="230" height="178" rx="3" style="fill:rgba(0,0,0,.4)"/>
-      <rect x="86" y="118" width="230" height="178" rx="3" class="c-metal" style="stroke:var(--metal-hi)" stroke-width="3"/>
-      <rect x="100" y="132" width="202" height="150" style="fill:var(--paper)"/>
-      <rect x="107" y="139" width="188" height="136" fill="none" style="stroke:var(--paper-ink)" stroke-width="1.2"/>
-      <text x="201" y="168" text-anchor="middle" class="t-disp" font-size="13" font-weight="700" letter-spacing="2.5" style="fill:var(--paper-ink)">CERTIFICATE</text>
-      <text x="201" y="183" text-anchor="middle" class="t-mono" font-size="7" letter-spacing="2" style="fill:var(--paper-ink)">OF EXPERIENCE</text>
-      <rect x="140" y="198" width="122" height="3" rx="1.5" style="fill:var(--paper-ink)" opacity=".5"/>
-      <rect x="152" y="210" width="98" height="3" rx="1.5" style="fill:var(--paper-ink)" opacity=".35"/>
-      <rect x="146" y="222" width="110" height="3" rx="1.5" style="fill:var(--paper-ink)" opacity=".35"/>
-      <path d="M262,262 l-8,22 l9,-5 l7,8 l2,-24 z" style="fill:var(--seal)" opacity=".85"/>
-      <circle cx="268" cy="254" r="14" style="fill:var(--seal)"/>
-      <circle cx="268" cy="254" r="9" fill="none" style="stroke:var(--paper)" stroke-width="1.2" opacity=".7"/>
-    </g>
-
-    <!-- ART SLOT: board (Interests) -->
-    <g class="hot" id="obj-interests" data-view="interests" data-label="Interests" tabindex="0" role="button" aria-label="Interests, corkboard">
-      <rect x="470" y="92" width="520" height="252" rx="6" style="fill:var(--wood-lo)"/>
-      <rect x="482" y="104" width="496" height="228" style="fill:var(--cork)"/>
-      <rect x="482" y="104" width="496" height="228" fill="url(#pCork)"/>
-      <g id="stickies"></g>
-    </g>
-
-    <!-- monitor: curved ultrawide, light bar, webcam -->
-    <g>
-      <polygon points="640,454 1005,454 1060,560 585,560" fill="url(#gCone)"/>
-      <rect x="640" y="440" width="365" height="14" rx="7" class="c-metal-hi"/>
-      <rect x="650" y="445" width="345" height="4" rx="2" style="fill:var(--amber)" opacity=".85"/>
-      <rect x="545" y="428" width="55" height="27" rx="5" class="c-metal"/>
-      <circle cx="572" cy="441" r="6" style="fill:var(--rail)" stroke="var(--metal-hi)"/>
-      <rect x="800" y="770" width="40" height="48" class="c-metal"/>
-      <rect x="760" y="806" width="120" height="10" rx="3" class="c-metal-hi"/>
-      <path d="M455,470 Q455,455 470,455 L1165,455 Q1180,455 1180,470 L1180,760 Q1180,773 1165,773 Q817,790 470,773 Q455,773 455,760 Z" style="fill:var(--rail)" stroke="var(--metal-hi)" stroke-width="2"/>
-      <g clip-path="url(#cScreen)">
-        <rect x="463" y="463" width="709" height="297" fill="url(#gScreen)"/>
-        <rect x="463" y="463" width="709" height="297" fill="url(#gSun)"/>
-        <path d="M463,722 L520,692 L580,708 L650,676 L740,702 L820,682 L900,706 L990,690 L1080,710 L1172,692 L1172,760 L463,760 Z" style="fill:var(--hill)"/>
-        <g id="dockicons"></g>
-        <polygon points="463,463 760,463 600,760 463,760" style="fill:var(--ink)" opacity=".035"/>
-      </g>
-      <text x="817" y="768" text-anchor="middle" class="t-mono" font-size="8" letter-spacing="2" style="fill:var(--ink-dim)">LG</text>
-    </g>
-
-    <!-- ART SLOT: VS Code window on the monitor (Current projects) -->
+    <g clip-path="url(#cScreen)">
     <g class="hot" id="obj-code" data-view="now" data-label="Current projects" tabindex="0" role="button" aria-label="Current projects, VS Code on the monitor">
+      <rect class="shape" id="sh-code" x="500" y="492" width="445" height="250" rx="5"/>
       <rect x="500" y="492" width="445" height="250" rx="5" style="fill:var(--vsc-bg);stroke:var(--line)"/>
       <rect x="500" y="492" width="445" height="16" rx="5" style="fill:var(--vsc-bar)"/>
       <circle cx="511" cy="500" r="3" style="fill:var(--dot-1)"/><circle cx="520" cy="500" r="3" style="fill:var(--dot-2)"/><circle cx="529" cy="500" r="3" style="fill:var(--dot-3)"/>
-      <text x="722" y="503" text-anchor="middle" class="t-mono" font-size="7" style="fill:var(--ink-dim)">rv32imacz.sv · desk</text>
+      <text x="722" y="503" text-anchor="middle" class="t-mono" font-size="7" style="fill:var(--ink-dim)">rv32imacz.sv · RV32IMACZ</text>
       <rect x="500" y="508" width="22" height="220" style="fill:var(--rail)"/>
       <rect x="506" y="516" width="10" height="10" rx="2" style="fill:var(--metal-hi)"/><rect x="506" y="534" width="10" height="10" rx="2" style="fill:var(--metal-hi)"/><rect x="506" y="552" width="10" height="10" rx="2" style="fill:var(--metal-hi)"/>
       <rect x="522" y="508" width="100" height="220" style="fill:var(--vsc-side)"/>
@@ -136,9 +96,8 @@
       <rect x="500" y="728" width="445" height="14" style="fill:var(--vsc-status)"/>
       <text x="508" y="738" class="t-mono" font-size="7" fill="#fff">main · SystemVerilog · 23/23 tests passing</text>
     </g>
-
-    <!-- ART SLOT: mail app window on the monitor (Get in touch) -->
     <g class="hot" id="obj-mail" data-view="contact" data-label="Get in touch" tabindex="0" role="button" aria-label="Get in touch, mail app on the monitor">
+      <rect class="shape" id="sh-mail" x="962" y="522" width="200" height="218" rx="5"/>
       <rect x="962" y="522" width="200" height="218" rx="5" style="fill:var(--mail-bg)"/>
       <rect x="962" y="522" width="200" height="16" rx="5" style="fill:var(--mail-bar)"/>
       <circle cx="973" cy="530" r="3" style="fill:var(--dot-1)"/><circle cx="982" cy="530" r="3" style="fill:var(--dot-2)"/><circle cx="991" cy="530" r="3" style="fill:var(--dot-3)"/>
@@ -151,118 +110,52 @@
       <rect x="1036" y="571" width="100" height="4" rx="2" style="fill:var(--mail-line)"/><rect x="1036" y="579" width="70" height="4" rx="2" style="fill:var(--mail-line)"/>
       <g id="mailrows"></g>
     </g>
-
-    <!-- LED clock (live) -->
-    <g>
-      <text id="clkGlow" x="777" y="850" text-anchor="middle" class="t-mono" font-size="68" font-weight="700" letter-spacing="3" style="fill:var(--led)" filter="url(#fBlur)" opacity=".7">00:00</text>
-      <text id="clk" x="777" y="850" text-anchor="middle" class="t-mono" font-size="68" font-weight="700" letter-spacing="3" style="fill:var(--led)">00:00</text>
+      <rect class="glass" x="460" y="450" width="725" height="310" fill="url(#gGlass)" pointer-events="none"/>
+      <rect id="flicker" x="460" y="450" width="725" height="310" fill="#fff" opacity="0" pointer-events="none"/>
     </g>
 
-    <!-- desk mat + keyboard -->
-    <rect class="c-mat" x="375" y="880" width="885" height="360" rx="22"/>
-    <g>
-      <rect x="600" y="888" width="295" height="80" rx="9" class="c-metal"/>
-      <rect x="606" y="893" width="283" height="70" rx="5" fill="url(#pKeys)"/>
-    </g>
-    <!-- mouse -->
-    <g>
-      <rect x="992" y="975" width="128" height="106" rx="46" style="fill:var(--metal)" stroke="var(--metal-hi)" stroke-width="2"/>
-      <line x1="1056" y1="982" x2="1056" y2="1018" style="stroke:var(--metal-hi)" stroke-width="2"/>
-    </g>
-    <!-- earbuds cable -->
-    <g fill="none" style="stroke:var(--ink)" stroke-width="2.4" stroke-linecap="round" opacity=".75">
-      <path d="M938,850 C930,930 1000,1000 1080,960 C1130,930 1150,890 1090,880 C1030,872 1010,930 1075,985"/>
-      <path d="M1075,985 C1110,1000 1150,990 1165,960"/>
-    </g>
-    <!-- calculator + glasses -->
-    <g>
-      <g transform="rotate(-18 468 1000)">
-        <rect x="395" y="940" width="130" height="108" rx="7" style="fill:var(--rail)" stroke="var(--metal-hi)" stroke-width="1.5"/>
-        <rect x="405" y="950" width="110" height="22" rx="2" style="fill:var(--leaf-1)" opacity=".7"/>
-        <rect x="402" y="980" width="116" height="62" fill="url(#pCalc)"/>
+    <!-- Live LED clock: segments are drawn by desk.js over the photo's (switched off) digits -->
+    <g id="clock" filter="url(#fGlow)" aria-hidden="true"></g>
+
+    <!-- ART SLOT: iPad screen, links to the v1 portfolio -->
+    <a class="hot" id="obj-v1" href="/v1/" target="_blank" rel="noopener" data-label="v1 portfolio ↗" aria-label="Open the previous portfolio, version 1, in a new tab">
+      <rect class="shape" id="sh-v1" x="535" y="978" width="390" height="190" rx="16"/>
+      <g clip-path="url(#cPad)">
+        <rect x="541" y="986" width="377" height="174" fill="#0a0f1a"/>
+        <image href="assets/art/ipad-v1.webp" x="541" y="986" width="377" height="174" preserveAspectRatio="xMidYMid slice" opacity=".92"/>
+        <rect x="541" y="986" width="377" height="174" fill="url(#gPad)"/>
       </g>
-      <g fill="none" style="stroke:var(--ink-dim)" stroke-width="2" opacity=".7"><circle cx="478" cy="912" r="16"/><circle cx="530" cy="906" r="16"/><path d="M494,910 Q504,904 514,908"/></g>
-    </g>
-
-    <!-- ART SLOT: books on the table (Coursework, opens a popup instead of a page) -->
-    <g class="hot" id="obj-courses" data-view="courses" data-label="Coursework (popup)" tabindex="0" role="button" aria-label="Relevant coursework, stack of books">
-      <rect x="44" y="1112" width="290" height="54" rx="4" style="fill:#2f4a6d"/>
-      <rect x="56" y="1118" width="270" height="42" rx="2" style="fill:var(--paper)" opacity=".9"/>
-      <rect x="44" y="1112" width="22" height="54" rx="4" style="fill:#2f4a6d"/>
-      <rect x="66" y="1056" width="258" height="54" rx="4" style="fill:#7a3b3b"/>
-      <rect x="78" y="1062" width="238" height="42" rx="2" style="fill:var(--paper)" opacity=".9"/>
-      <rect x="66" y="1056" width="22" height="54" rx="4" style="fill:#7a3b3b"/>
-      <g transform="rotate(-3 200 1018)">
-        <rect x="90" y="1002" width="228" height="52" rx="4" style="fill:#3c6b4f"/>
-        <rect x="102" y="1008" width="208" height="40" rx="2" style="fill:var(--paper)" opacity=".9"/>
-        <rect x="90" y="1002" width="22" height="52" rx="4" style="fill:#3c6b4f"/>
-        <text x="206" y="1033" text-anchor="middle" class="t-disp" font-size="15" font-weight="700" style="fill:var(--paper-ink)">Digital Design</text>
-      </g>
-      <text x="196" y="1145" text-anchor="middle" class="t-disp" font-size="15" font-weight="700" style="fill:var(--paper-ink)">Computer Architecture</text>
-      <text x="200" y="1090" text-anchor="middle" class="t-disp" font-size="15" font-weight="700" style="fill:var(--paper-ink)">Signals and Systems</text>
-    </g>
-
-    <!-- ART SLOT: iPad (links out to your current portfolio, v1) -->
-    <a class="hot" id="obj-v1" href="/v1/" target="_blank" rel="noopener" data-label="v1 portfolio (opens in a new tab)" aria-label="Open the current portfolio, version 1, in a new tab">
-      <rect x="535" y="972" width="390" height="230" rx="20" style="fill:var(--metal-hi)"/>
-      <rect x="549" y="986" width="362" height="202" rx="8" style="fill:var(--old-bg)"/>
-      <text x="572" y="1030" class="t-mono" font-size="14" style="fill:var(--accent)">hhlong7.github.io</text>
-      <text x="572" y="1070" class="t-disp" font-size="28" font-weight="700" style="fill:var(--ink)">Long Hoang Ho</text>
-      <text x="572" y="1094" class="t-mono" font-size="12" style="fill:var(--ink-dim)">EE Portfolio · v1</text>
-      <rect x="572" y="1112" width="180" height="6" rx="3" style="fill:var(--accent)" opacity=".8"/>
-      <rect x="572" y="1128" width="240" height="6" rx="3" style="fill:var(--ink-dim)" opacity=".35"/>
-      <rect x="572" y="1142" width="210" height="6" rx="3" style="fill:var(--ink-dim)" opacity=".35"/>
-      <text x="892" y="1176" text-anchor="end" class="t-mono" font-size="11" style="fill:var(--accent)">OPEN v1 ↗</text>
-      <rect x="640" y="958" width="236" height="9" rx="4.5" style="fill:var(--ink)" opacity=".9"/>
     </a>
 
-    <!-- headphones -->
-    <g>
-      <path d="M1338,1050 C1330,900 1596,900 1596,1050" fill="none" style="stroke:var(--ink)" stroke-width="18" stroke-linecap="round" opacity=".92"/>
-      <ellipse cx="1342" cy="1060" rx="34" ry="58" style="fill:var(--ink)" opacity=".95"/>
-      <ellipse cx="1600" cy="1060" rx="34" ry="58" style="fill:var(--ink)" opacity=".95"/>
+    <!-- Traced hit shapes over the photo. Each .shape is invisible until hover or focus. -->
+    <g class="hot" id="obj-experience" data-view="experience" data-label="Experience" tabindex="0" role="button" aria-label="Experience, framed certificate">
+      <polygon class="shape" id="sh-experience" points="184,84 505,82 503,343 186,345"/>
     </g>
-
-    <!-- ART SLOT: framed picture on the table (About me) -->
+    <g class="hot" id="obj-interests" data-view="interests" data-label="Interests" tabindex="0" role="button" aria-label="Interests, corkboard">
+      <polygon class="shape" id="sh-interests" points="637,80 1060,82 1058,372 638,372"/>
+    </g>
     <g class="hot" id="obj-about" data-view="about" data-label="About me" tabindex="0" role="button" aria-label="About me, framed picture">
-      <path d="M1252,826 L1236,790 L1268,790 Z" class="c-metal"/>
-      <rect x="1194" y="702" width="118" height="128" rx="4" style="fill:var(--wood-lo)" stroke="var(--wood-hi)" stroke-width="3"/>
-      <rect x="1206" y="714" width="94" height="104" style="fill:var(--paper)"/>
-      <rect x="1214" y="722" width="78" height="88" style="fill:var(--screen-2)"/>
-      <circle cx="1253" cy="758" r="16" style="fill:var(--paper)" opacity=".85"/>
-      <path d="M1218,810 C1220,782 1286,782 1288,810 Z" style="fill:var(--paper)" opacity=".85"/>
-      <text x="1253" y="742" text-anchor="middle" class="t-mono" font-size="7" letter-spacing="1" style="fill:var(--ink)" opacity=".7">YOUR PHOTO</text>
+      <polygon class="shape" id="sh-about" points="1141,741 1300,753 1294,960 1139,941"/>
     </g>
-
-    <!-- ART SLOT: desktop bookshelf (Projects done) -->
     <g class="hot" id="obj-done" data-view="done" data-label="Past projects" tabindex="0" role="button" aria-label="Past projects, desktop bookshelf">
-      <rect x="1330" y="560" width="250" height="270" rx="3" style="fill:var(--wood-lo)"/>
-      <rect x="1342" y="572" width="226" height="118" style="fill:var(--rail)"/>
-      <rect x="1342" y="702" width="226" height="116" style="fill:var(--rail)"/>
+      <polygon class="shape" id="sh-done" points="1305,585 1574,585 1574,924 1305,924"/>
       <g id="books"></g>
-      <rect x="1330" y="690" width="250" height="12" style="fill:var(--wood)"/>
-      <rect x="1330" y="818" width="250" height="12" style="fill:var(--wood)"/>
-      <rect x="1322" y="554" width="266" height="12" rx="3" style="fill:var(--wood-hi)"/>
+    </g>
+    <g class="hot" id="obj-courses" data-view="courses" data-label="Coursework" tabindex="0" role="button" aria-label="Relevant coursework, stack of books">
+      <polygon class="shape" id="sh-courses" points="18,962 46,893 356,880 368,900 368,1112 332,1150 18,1152"/>
+    </g>
+    <g class="hot" id="obj-volunteer" data-view="volunteer" data-label="Volunteering and orgs" tabindex="0" role="button" aria-label="Volunteering, leadership and organizations, plants">
+      <polygon class="shape" id="sh-volunteer" points="82,452 198,410 330,438 322,622 300,700 348,718 344,842 92,848 96,702 140,640 86,560"/>
     </g>
 
-    <!-- ART SLOT: plants on the riser (Volunteering, leadership and orgs) -->
-    <g class="hot" id="obj-volunteer" data-view="volunteer" data-label="Volunteering and orgs" tabindex="0" role="button" aria-label="Volunteering, leadership and organizations, plants">
-      <rect x="36" y="812" width="12" height="130" class="c-metal"/><rect x="322" y="812" width="12" height="130" class="c-metal"/>
-      <rect x="20" y="792" width="334" height="22" rx="3" style="fill:var(--wood)" stroke="var(--wood-hi)"/>
-      <!-- lantern -->
-      <path d="M118,722 Q140,690 162,722" fill="none" style="stroke:var(--metal-hi)" stroke-width="3"/>
-      <rect x="112" y="722" width="56" height="70" rx="6" style="fill:var(--rail)" stroke="var(--metal-hi)" stroke-width="2"/>
-      <rect x="120" y="734" width="40" height="46" rx="4" style="fill:var(--amber)" opacity=".18"/>
-      <!-- eucalyptus in black vase -->
-      <g id="euc"></g>
-      <path d="M200,790 Q176,712 214,656 L252,656 Q288,712 266,790 Z" style="fill:var(--mat)" stroke="var(--rail-hi)" stroke-width="2"/>
-      <!-- succulents in white pots -->
-      <path d="M204,764 L252,764 L246,816 L210,816 Z" style="fill:var(--ink)" opacity=".92"/>
-      <path d="M262,772 L338,772 L328,834 L272,834 Z" style="fill:var(--ink)" opacity=".92"/>
-      <g id="succ"></g>
-    </g>
+    <!-- hover spotlight: darkens the photo except the hovered object -->
+    <rect id="dim" x="-2000" y="-2000" width="5600" height="5200" fill="#05070a" mask="url(#mDim)" pointer-events="none"/>
   </svg>
 
+<noscript>
+  <style>body{overflow:auto;display:block;height:auto}.stage{overflow:visible}.stage::before,#scene,.tip,.veil,.hint,.dock,.bar{display:none}.top{position:static}.view{position:static;opacity:1;visibility:visible;transform:none;width:auto;max-width:760px;max-height:none;margin:16px auto}.note .more{display:block}</style>
+  <img src="assets/art/desk-1200.webp" alt="Long's desk: monitor, certificate, corkboard, plants, books and an iPad" style="display:block;width:100%;height:auto">
+</noscript>
   <div class="tip" id="tip" role="presentation"></div>
   <div class="veil" id="veil"></div>
 
