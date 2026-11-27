@@ -1,11 +1,11 @@
-import { ArrowUpRight, Mail, MapPin } from "lucide-react"
+import { ArrowUpRight, Copy, Mail, MapPin } from "lucide-react"
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from "@/components/brand-icons"
-import { coursesNow, currentProjects, finishedProjects, profile, work } from "@/data/content"
+import { coursesNow, currentProjects, facts, finishedProjects, profile, work } from "@/data/content"
 
-// Miniature versions of the two pages, laid out at a fixed design size and scaled down inside
+// Miniature versions of the pages, laid out at a fixed design size and scaled down inside
 // the hover card. They are pictures of the pages, so they stay out of the a11y tree.
 
-function MiniBar({ current }: { current: "experience" | "about" }) {
+function MiniBar({ current }: { current: "experience" | "about" | "contact" }) {
   const item = (id: string, label: string) => (
     <span className={id === current ? "text-foreground" : "text-faint"}>{label}</span>
   )
@@ -15,7 +15,8 @@ function MiniBar({ current }: { current: "experience" | "about" }) {
       <span className="flex gap-9 font-medium">
         {item("desk", "Desk")}
         {item("experience", "Experience")}
-        {item("about", "About + contact")}
+        {item("about", "About me")}
+        {item("contact", "Contact")}
       </span>
     </div>
   )
@@ -75,17 +76,12 @@ function MiniRow({ title, sub }: { title: string; sub: string }) {
 }
 
 export function LaptopPreview() {
-  const rows = [
-    { icon: Mail, text: profile.email },
-    { icon: Github, text: profile.github.label },
-    { icon: Linkedin, text: profile.linkedin.label },
-    { icon: MapPin, text: profile.basedIn },
-  ]
+  const shown = facts.filter((f) => ["School", "Degree", "Graduating", "Focus"].includes(f.label))
   return (
     <div className="flex h-full w-full flex-col bg-background text-foreground">
       <div className="flex items-center justify-between border-b px-12 py-7 text-[26px]">
         <span className="font-display text-[30px] font-bold tracking-tight">{profile.name}</span>
-        <span className="text-faint">About + contact</span>
+        <span className="text-faint">About me</span>
       </div>
       <div className="flex flex-1 gap-12 px-12 pt-12">
         <img src={profile.photo} alt="" className="h-[330px] w-[264px] flex-none rounded-2xl object-cover" />
@@ -96,13 +92,44 @@ export function LaptopPreview() {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-x-10 gap-y-4 border-t px-12 py-8 text-[27px]">
-        {rows.map(({ icon: Icon, text }) => (
-          <span key={text} className="flex min-w-0 items-center gap-4">
-            <Icon className="size-8 flex-none text-accent" />
-            <span className="truncate">{text}</span>
-          </span>
+      <dl className="grid grid-cols-2 gap-x-10 gap-y-5 border-t px-12 py-8">
+        {shown.map((f) => (
+          <div key={f.label} className="min-w-0">
+            <dt className="text-[19px] tracking-wide text-faint uppercase">{f.label}</dt>
+            <dd className="truncate text-[27px]">{f.value}</dd>
+          </div>
         ))}
+      </dl>
+    </div>
+  )
+}
+
+export function ContactPreview() {
+  const rows = [
+    { icon: Github, text: "GitHub" },
+    { icon: Linkedin, text: "LinkedIn" },
+    { icon: MapPin, text: profile.basedIn },
+  ]
+  return (
+    <div className="flex h-full w-full flex-col bg-background text-foreground">
+      <MiniBar current="contact" />
+      <div className="flex-1 px-12 pt-11">
+        <h2 className="font-display text-[86px] leading-[0.95] font-bold tracking-[-0.03em]">Get in touch</h2>
+        <div className="mt-9 border-y py-7">
+          <div className="truncate font-display text-[50px] leading-tight font-bold tracking-tight">{profile.email}</div>
+          <div className="mt-5 flex gap-4 text-[22px] font-medium">
+            <span className="inline-flex items-center gap-3 rounded-full border px-6 py-2.5"><Copy className="size-6" /> Copy email</span>
+            <span className="inline-flex items-center gap-3 rounded-full border px-6 py-2.5"><Mail className="size-6" /> Open in mail app</span>
+          </div>
+        </div>
+        <div className="flex gap-12 py-7 text-[25px]">
+          {rows.map(({ icon: Icon, text }) => (
+            <span key={text} className="flex min-w-0 items-center gap-3">
+              <Icon className="size-7 flex-none text-accent" />
+              <span className="truncate">{text}</span>
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   )
