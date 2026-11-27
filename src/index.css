@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+/* The room the photo was taken in: dusk-green wall, walnut desk, the monitor's sunset wallpaper. */
+:root {
+  --wall: oklch(0.2 0.018 135);
+  --wall-hi: oklch(0.25 0.02 135);
+  --wall-lo: oklch(0.155 0.014 135);
+  --ink: oklch(0.94 0.012 130);
+  --ink-dim: oklch(0.76 0.02 130);
+  --ink-faint: oklch(0.6 0.02 130);
+  --line: oklch(0.32 0.018 135);
+  --accent: oklch(0.83 0.13 160);
+  --ember: oklch(0.78 0.12 62);
+  --walnut: oklch(0.36 0.06 50);
+  --todo: oklch(0.82 0.12 85);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--wall-lo);
+  --color-foreground: var(--ink);
+  --color-muted: var(--wall);
+  --color-muted-foreground: var(--ink-dim);
+  --color-faint: var(--ink-faint);
+  --color-secondary: var(--wall-hi);
+  --color-secondary-foreground: var(--ink);
+  --color-border: var(--line);
+  --color-accent: var(--accent);
+  --color-ember: var(--ember);
+  --color-walnut: var(--walnut);
+  --color-todo: var(--todo);
+  --color-wall: var(--wall);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-dolly: cubic-bezier(0.65, 0, 0.2, 1);
+}
+
+@layer base {
+  *, ::before, ::after { border-color: var(--color-border); }
+  html { background: var(--wall-lo); scrollbar-color: var(--line) var(--wall-lo); scroll-padding-top: 5rem; }
+  body {
+    background: var(--wall-lo);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: oklch(0.83 0.13 160 / 0.32); color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  a { text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--wall-lo); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; border: 2px solid var(--wall-lo); }
+}
+
+/* Cross-document morph: the screen you clicked becomes the page. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.42s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
