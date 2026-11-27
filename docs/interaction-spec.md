@@ -4,27 +4,30 @@ The landing page (`/`) is a photo of Long's desk. Two things on it are live: the
 
 | Screen | Hover / focus shows | Click / Enter / tap goes to |
 |---|---|---|
-| Monitor | a miniature of the Experience page (work, projects, courses now) mapped onto the glass | `/experience/` |
-| Laptop | a miniature of the About page (photo, intro, email, GitHub, LinkedIn, location) | `/about/` |
+| Monitor | a pop-up card beside the pointer with a miniature of the Experience page (work, projects, courses now) | `/experience/` |
+| Laptop | a pop-up card with a miniature of the About page (photo, intro, email, GitHub, LinkedIn, location) | `/about/` |
 
 ## States
 
 | State | What you see |
 |---|---|
 | Loading | room-colored backdrop and a tiny blurred stand-in, then the photo fades in (0.7s) |
-| Idle | both screens blurred for privacy; green dots on each screen and the hint "Hover a screen to look, click to go in" until the first hover |
-| Preview | the screen lights up with its page (300ms), the rest of the photo dims, a label chip names the destination |
-| Zooming | the camera pushes into the screen until it fills the window (720ms), then the page loads; the browser's view transition crossfades the rest |
+| Idle | the photo as taken, screens unblurred; blue dots on each screen and the hint "Hover a screen to look, click to go in" until the first hover |
+| Preview | the rest of the photo dims and a card pops up beside the pointer (fades and scales in over 250ms), then trails the pointer with a slight ease. Its caption names the page and says "Click to open". It flips to the other side of the pointer near the window edges |
+| Zooming | the camera pushes straight into the clicked screen, pivoting on its center (850ms). The glass lights up to the page color over the last half, a room-colored veil covers the window, then the page loads |
+| Arriving | a page entered through a screen fades its header in and resolves its content top-down: title, intro, then the rest, each rising 20px out of a slight blur (0.8s, 70ms apart). Visiting a page directly skips this |
+| Returning | "Back to the desk" (or the back button) opens the desk zoomed inside the screen you left, then pulls back out to the whole desk (1s) |
 | Photo failed | a note in the middle; the bottom bar still reaches both pages |
 
 ## Rules
 
-- The bottom bar ("Experience", "About me + contact") always works and mirrors hover: pointing at a button lights its screen.
-- Touch: no hover, so a tap zooms and goes straight to the page.
-- Keyboard: Tab reaches both screens (accent outline on the glass) and both buttons. Focus shows the preview.
+- The bottom bar ("Experience", "About me + contact") always works and mirrors hover: pointing at a button lights its screen and shows the card above the button.
+- Touch: no hover and no card; a tap zooms and goes straight to the page.
+- Keyboard: Tab reaches both screens (accent outline on the glass) and both buttons. Focus shows the card next to the focused item.
 - Modifier-click or middle-click opens the page normally in a new tab, no zoom.
 - `prefers-reduced-motion`: no zoom, no fades, no pulsing dots; links navigate at once.
-- Back button: the page is restored from cache at home framing.
+- Back button from a page: the desk pulls back out of that page's screen. If the browser restores the desk from cache instead, it shows at home framing.
+- Light mode: the Experience and About pages follow the system setting until the visitor uses the sun/moon button at the right of the header. That choice is saved in the browser and applies to both pages; switching back to the system's own mode clears it, so the site follows the system again. In light mode the background takes the dark mode's text color, text takes the dark background, and the blue becomes #4470AD. The desk itself stays dark either way, since it is a photo of a dark room; clicking a screen still fades into the page's own background color.
 - Framing: on wide windows the photo fills the window; on portrait windows it fits the two screens and feathers its edges into a blurred copy of the room.
 
 ## Experience page projects

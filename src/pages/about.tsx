@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ArrowUpRight, Check, Copy, FileText, Mail, MapPin } from "lucide-react"
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons"
-import { Section, SiteFooter, SiteHeader, TodoNote } from "@/components/site-chrome"
+import { Section, SiteFooter, SiteHeader, TodoNote, enter } from "@/components/site-chrome"
 import { bio, community, facts, interests, profile } from "@/data/content"
 
 function CopyEmail() {
@@ -42,6 +42,7 @@ export function AboutPage() {
       <main>
         <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-16 sm:px-8 sm:pt-24 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-14">
           <img
+            {...enter(1)}
             src={profile.photo}
             width={480}
             height={600}
@@ -49,13 +50,13 @@ export function AboutPage() {
             className="aspect-[4/5] w-full max-w-80 rounded-2xl object-cover shadow-[0_24px_60px_-24px_oklch(0_0_0/.8)]"
           />
           <div>
-            <h1 className="font-display text-[clamp(3rem,8vw,5.5rem)] leading-[0.92] font-bold tracking-[-0.035em]">Hi, I'm Long.</h1>
-            <div className="mt-7 max-w-[64ch] space-y-4 text-lg text-muted-foreground">
+            <h1 {...enter(0)} className="font-display text-[clamp(3rem,8vw,5.5rem)] leading-[0.92] font-bold tracking-[-0.035em]">Hi, I'm Long.</h1>
+            <div {...enter(2)} className="mt-7 max-w-[64ch] space-y-4 text-lg text-muted-foreground">
               {bio.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
-            <dl className="mt-9 grid max-w-[64ch] gap-x-8 border-t sm:grid-cols-2">
+            <dl {...enter(3)} className="mt-9 grid max-w-[64ch] gap-x-8 border-t sm:grid-cols-2">
               {shownFacts.map((f) => (
                 <div key={f.label} className="border-b py-3">
                   <dt className="text-xs tracking-wide text-faint uppercase">{f.label}</dt>
@@ -64,8 +65,9 @@ export function AboutPage() {
               ))}
             </dl>
             <a
+              {...enter(4)}
               href="#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 font-medium text-background no-underline transition-[filter] hover:brightness-110"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent-fill px-5 py-2.5 font-medium text-on-accent no-underline ring-1 ring-accent/25 transition-[filter,box-shadow] ring-inset hover:brightness-125 hover:ring-accent/50"
             >
               <Mail aria-hidden className="size-4" /> Get in touch
             </a>

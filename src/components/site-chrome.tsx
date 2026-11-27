@@ -1,7 +1,8 @@
-import type { ReactNode } from "react"
-import { ArrowLeft, ArrowUpRight, Laptop, Monitor } from "lucide-react"
+import { useEffect, type CSSProperties, type ReactNode } from "react"
+import { ArrowLeft, ArrowUpRight, Laptop, Monitor, Moon, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { profile } from "@/data/content"
+import { useTheme } from "@/lib/theme"
 
 type Page = "experience" | "about"
 
@@ -10,9 +11,22 @@ const links = [
   { id: "about" as const, href: "/about/", label: "About + contact", icon: Laptop },
 ]
 
+const SCREEN = { experience: "monitor", about: "laptop" } as const
+
+/** Stagger slot for the entrance played when the page is entered through a desk screen. */
+export const enter = (i: number) => ({ "data-enter": "", style: { "--i": i } as CSSProperties })
+
 export function SiteHeader({ current }: { current: Page }) {
+  // Leave a note for the desk, so coming back (link or back button) pulls out of this page's screen.
+  useEffect(() => {
+    const note = () => {
+      try { sessionStorage.setItem("desk:return", JSON.stringify({ id: SCREEN[current], t: Date.now() })) } catch { /* ignore */ }
+    }
+    window.addEventListener("pagehide", note)
+    return () => window.removeEventListener("pagehide", note)
+  }, [current])
   return (
-    <header className="sticky top-0 z-30 border-b bg-background/85 backdrop-blur-md">
+    <header className="site-header sticky top-0 z-30 border-b bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
         <a href="/" className="group flex min-w-0 items-center gap-3 text-foreground no-underline">
           <span
@@ -44,9 +58,29 @@ export function SiteHeader({ current }: { current: Page }) {
               <span className={cn(current !== id && "max-sm:sr-only")}>{label}</span>
             </a>
           ))}
+          <ThemeToggle />
         </nav>
       </div>
     </header>
+  )
+}
+
+function ThemeToggle() {
+  const { theme, toggle } = useTheme()
+  const next = theme === "light" ? "dark" : "light"
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={`Switch to ${next} mode`}
+      title={`Switch to ${next} mode`}
+      className="group ml-1 grid size-9 flex-none place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+    >
+      <span className="relative size-4">
+        <Sun aria-hidden className={cn("absolute inset-0 size-4 transition-[opacity,rotate,scale] duration-300 ease-out-expo", theme === "light" ? "scale-50 -rotate-90 opacity-0" : "")} />
+        <Moon aria-hidden className={cn("absolute inset-0 size-4 transition-[opacity,rotate,scale] duration-300 ease-out-expo", theme === "dark" ? "scale-50 rotate-90 opacity-0" : "")} />
+      </span>
+    </button>
   )
 }
 
@@ -67,9 +101,9 @@ export function SiteFooter() {
 }
 
 /** A section with its heading in a left rail on wide screens. */
-export function Section({ id, title, aside, children }: { id: string; title: string; aside?: ReactNode; children: ReactNode }) {
+export function Section({ id, title, aside, children, enterAt }: { id: string; title: string; aside?: ReactNode; children: ReactNode; enterAt?: number }) {
   return (
-    <section id={id} aria-labelledby={`${id}-h`} className="mx-auto mt-24 grid max-w-6xl gap-x-12 gap-y-6 px-5 sm:px-8 lg:grid-cols-[13rem_1fr]">
+    <section id={id} aria-labelledby={`${id}-h`} {...(enterAt !== undefined ? enter(enterAt) : {})} className="mx-auto mt-24 grid max-w-6xl gap-x-12 gap-y-6 px-5 sm:px-8 lg:grid-cols-[13rem_1fr]">
       <div>
         <h2 id={`${id}-h`} className="font-display text-3xl font-bold tracking-tight lg:sticky lg:top-24">
           {title}
@@ -94,7 +128,7 @@ export function Tags({ items }: { items: string[] }) {
   return (
     <ul className="flex flex-wrap gap-x-2 gap-y-1.5" aria-label="Tools">
       {items.map((t) => (
-        <li key={t} className="rounded-full bg-secondary px-2.5 py-0.5 font-mono text-xs text-muted-foreground">
+        <li key={t} className="rounded-full bg-secondary px-2.5 py-0.5 font-detail text-xs text-muted-foreground">
           {t}
         </li>
       ))}

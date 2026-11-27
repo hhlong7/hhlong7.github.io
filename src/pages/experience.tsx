@@ -1,5 +1,5 @@
 import { ProjectShowcase, type ShowcaseProject } from "@/components/ui/project-showcase"
-import { Section, SiteFooter, SiteHeader, Tags, TodoNote } from "@/components/site-chrome"
+import { Section, SiteFooter, SiteHeader, Tags, TodoNote, enter } from "@/components/site-chrome"
 import {
   coursesDone,
   coursesNow,
@@ -29,7 +29,7 @@ function toShowcase(p: Project): ShowcaseProject {
 function ProjectDetails({ p }: { p: Project }) {
   return (
     <div className="max-w-[68ch] space-y-4 text-[15px] text-muted-foreground">
-      <p className="font-mono text-xs text-faint">{p.meta}</p>
+      <p className="font-detail text-xs text-faint">{p.meta}</p>
       {p.body.map((t) => (
         <p key={t}>{t}</p>
       ))}
@@ -45,7 +45,7 @@ function ProjectDetails({ p }: { p: Project }) {
           {p.stats.map((s) => (
             <div key={s.label}>
               <dt className="sr-only">{s.label}</dt>
-              <dd className="font-mono text-base text-foreground tabular-nums">
+              <dd className="font-detail text-base text-foreground tabular-nums">
                 {s.value} <span className="font-sans text-sm text-muted-foreground">{s.label}</span>
               </dd>
             </div>
@@ -64,7 +64,7 @@ function CourseList({ courses }: { courses: Course[] }) {
     <ul className="divide-y border-y">
       {courses.map((c) => (
         <li key={c.code} className="grid gap-x-6 gap-y-0.5 py-3.5 sm:grid-cols-[6.5rem_1fr]">
-          <span className="font-mono text-sm text-accent tabular-nums">{c.code}</span>
+          <span className="font-detail text-sm text-accent tabular-nums">{c.code}</span>
           <span>
             <span className="font-medium">{c.title}</span>
             {c.note && <span className="block text-sm text-muted-foreground">{c.note}</span>}
@@ -88,11 +88,11 @@ export function ExperiencePage() {
       <SiteHeader current="experience" />
       <main>
         <div className="mx-auto max-w-6xl px-5 pt-16 sm:px-8 sm:pt-24">
-          <h1 className="font-display text-[clamp(3rem,9vw,6rem)] leading-[0.92] font-bold tracking-[-0.035em]">Experience</h1>
-          <p className="mt-6 max-w-[52ch] text-lg text-muted-foreground sm:text-xl">
+          <h1 {...enter(0)} className="font-display text-[clamp(3rem,9vw,6rem)] leading-[0.92] font-bold tracking-[-0.035em]">Experience</h1>
+          <p {...enter(1)} className="mt-6 max-w-[52ch] text-lg text-muted-foreground sm:text-xl">
             Where I've worked, what I'm building, and the courses I'm taking. Open any project for the full write-up.
           </p>
-          <nav aria-label="On this page" className="mt-8 flex flex-wrap gap-2">
+          <nav {...enter(2)} aria-label="On this page" className="mt-8 flex flex-wrap gap-2">
             {jump.map((j) => (
               <a
                 key={j.href}
@@ -105,11 +105,11 @@ export function ExperiencePage() {
           </nav>
         </div>
 
-        <Section id="work" title="Work">
+        <Section id="work" title="Work" enterAt={3}>
           <ol className="divide-y border-y">
             {work.map((j) => (
               <li key={j.role} className="grid gap-x-8 gap-y-1 py-6 md:grid-cols-[11rem_1fr]">
-                <span className="pt-0.5 font-mono text-sm text-muted-foreground tabular-nums">
+                <span className="pt-0.5 font-detail text-sm text-muted-foreground tabular-nums">
                   {j.todo ? <span className="text-todo">Dates to fill in</span> : j.when}
                 </span>
                 <div className="max-w-[68ch]">

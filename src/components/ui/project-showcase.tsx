@@ -184,7 +184,7 @@ export function ProjectShowcase({ heading, projects, className }: ProjectShowcas
                   </span>
                   <span
                     className={cn(
-                      "pt-1 font-mono text-xs tabular-nums transition-all duration-300 ease-out",
+                      "pt-1 font-detail text-xs tabular-nums transition-all duration-300 ease-out",
                       isHovered ? "text-foreground/70" : "text-muted-foreground",
                     )}
                   >
@@ -242,11 +242,11 @@ function SpecCard({
       <div className="font-display text-xl leading-tight font-bold tracking-tight text-balance">{project.title}</div>
       {project.stat && (
         <div>
-          <div className="font-mono text-2xl font-medium text-accent tabular-nums">{project.stat.value}</div>
+          <div className="font-detail text-2xl font-medium text-accent tabular-nums">{project.stat.value}</div>
           <div className="text-xs text-muted-foreground">{project.stat.label}</div>
         </div>
       )}
-      <div className="truncate font-mono text-[11px] text-muted-foreground">{project.stack.slice(0, 4).join(" · ")}</div>
+      <div className="truncate font-detail text-[11px] text-muted-foreground">{project.stack.slice(0, 4).join(" · ")}</div>
     </div>
   )
 }

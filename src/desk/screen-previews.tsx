@@ -2,8 +2,8 @@ import { ArrowUpRight, Mail, MapPin } from "lucide-react"
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from "@/components/brand-icons"
 import { coursesNow, currentProjects, finishedProjects, profile, work } from "@/data/content"
 
-// Miniature versions of the two pages, laid out at a fixed design size and then mapped onto
-// the glass in the photo. They are pictures of the pages, so they stay out of the a11y tree.
+// Miniature versions of the two pages, laid out at a fixed design size and scaled down inside
+// the hover card. They are pictures of the pages, so they stay out of the a11y tree.
 
 function MiniBar({ current }: { current: "experience" | "about" }) {
   const item = (id: string, label: string) => (
@@ -32,7 +32,7 @@ export function MonitorPreview() {
           <p className="mt-5 text-[23px] leading-snug text-muted-foreground">
             Where I've worked, what I'm building, and the courses I'm taking.
           </p>
-          <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2 text-[20px] font-semibold text-background">
+          <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-accent-fill px-5 py-2 text-[20px] font-semibold text-on-accent">
             Open <ArrowUpRight className="size-5" strokeWidth={2.5} />
           </span>
         </div>

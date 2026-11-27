@@ -16,7 +16,7 @@ The personal portfolio of Long Hoang Ho, an Electrical Engineering student (CS m
 
 ## Positioning
 
-The site opens on an unedited photo of Long's real desk. The two screens on it are the navigation: hovering the curved monitor shows the Experience page on its glass, hovering the laptop shows About + contact, and clicking either zooms into that screen and opens the page. The work shown is hardware-level and verifiable: a 7-stage RV32IMAC core with measured test and cycle results, an RV32IM GPU fork, and KV-cache research.
+The site opens on an unedited photo of Long's real desk. The two screens on it are the navigation: hovering the curved monitor pops up a preview of the Experience page, hovering the laptop pops up About + contact, and clicking either zooms into that screen and opens the page. The work shown is hardware-level and verifiable: a 7-stage RV32IMAC core with measured test and cycle results, an RV32IM GPU fork, and KV-cache research.
 
 ## Operating Context
 
@@ -39,7 +39,7 @@ The site opens on an unedited photo of Long's real desk. The two screens on it a
 
 - Name as shown: Long Hoang Ho. Tagline: "EE + CS · Cal Poly SLO".
 - Voice: first person, plain and specific, honest about status ("Still early, so no big conclusions yet", "Plans, not results").
-- Landing page: the desk photo Long supplied (`public/assets/desk/desk.jpg`) is used as given, never edited. Its screens show private windows, so they are blurred in code at rest and covered by the page previews on hover.
+- Landing page: the desk photo Long supplied (`public/assets/desk/desk.jpg`) is used as given, never edited. Its screens are shown unblurred, by Long's choice; previews pop up beside the pointer rather than covering the screens.
 
 ## Evidence on Hand
 
@@ -59,4 +59,4 @@ The site opens on an unedited photo of Long's real desk. The two screens on it a
 
 - Both desk screens are keyboard-reachable with a visible focus outline, and the bottom bar duplicates them as plain links.
 - The browser's own pinch zoom is never hijacked.
-- `prefers-reduced-motion` removes the zoom, fades, pulsing dots and view transitions.
+- `prefers-reduced-motion` removes the zoom, fades, pulsing dots and the page entrance.
