@@ -18,12 +18,12 @@ The landing page (`/`) is a photo of Long's desk. Three things on it are live: t
 | Zooming | the camera pushes straight into the clicked screen, pivoting on its center (850ms). The glass lights up to the page color over the last half, a room-colored veil covers the window, then the page loads |
 | Arriving | a page entered through a screen fades its header in and resolves its content top-down: title, intro, then the rest, each rising 20px out of a slight blur (0.8s, 70ms apart). Visiting a page directly skips this |
 | Returning | "Back to the desk" (or the back button) opens the desk zoomed inside the screen you left, then pulls back out to the whole desk (1s) |
-| Photo failed | a note in the middle; the bottom bar still reaches both pages |
+| Photo failed | a note in the middle; the bottom bar still reaches every page |
 
 ## Rules
 
 - Clicking the name doesn't zoom (there is no screen to fly into): the photo fades to the page color over 320ms, then Contact builds in the same way the other pages do. Coming back fades the desk back in.
-- The bottom bar ("Experience", "About me") always works and mirrors hover: pointing at a button lights its screen and shows the card above the button.
+- The bottom bar ("Experience", "About me", "Contact") always works and mirrors hover: pointing at a button lights its screen (or the name, for Contact) and shows the card above the button.
 - Touch: no hover and no card; a tap zooms and goes straight to the page.
 - Keyboard: Tab reaches both screens (accent outline on the glass) and both buttons. Focus shows the card next to the focused item.
 - Modifier-click or middle-click opens the page normally in a new tab, no zoom.

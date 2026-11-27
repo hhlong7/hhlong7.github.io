@@ -477,7 +477,7 @@ export function DeskScene() {
 
       {photo === "failed" && (
         <p className="absolute top-1/2 left-1/2 max-w-[80%] -translate-1/2 rounded-xl border bg-background px-4 py-3 text-center text-sm">
-          The desk photo didn't load. Both pages are in the buttons below.
+          The desk photo didn't load. Every page is in the buttons below.
         </p>
       )}
 
@@ -511,6 +511,22 @@ export function DeskScene() {
               </a>
             )
           })}
+          <a
+            href={CONTACT.href}
+            onPointerEnter={(e) => show("contact", e.currentTarget)}
+            onPointerLeave={() => !covered && show(null)}
+            onFocus={(e) => show("contact", e.currentTarget)}
+            onBlur={() => !covered && show(null)}
+            onClick={openContact}
+            className={cn(
+              "flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium no-underline transition-colors duration-200",
+              lit === "contact" ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground",
+            )}
+          >
+            <Mail className="size-4" />
+            {CONTACT.label}
+            <ArrowUpRight className={cn("size-3.5 transition-opacity", lit === "contact" ? "opacity-100" : "opacity-0")} />
+          </a>
         </div>
       </nav>
     </main>
