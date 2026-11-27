@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite"
 
 const r = (p: string) => fileURLToPath(new URL(p, import.meta.url))
 
-// Three real pages (no client router), so GitHub Pages serves /experience/ and /about/ directly.
+// Real pages (no client router), so GitHub Pages serves /experience/, /about/ and /contact/ directly.
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   resolve: { alias: { "@": r("./src") } },
@@ -15,6 +15,7 @@ export default defineConfig({
         desk: r("./index.html"),
         experience: r("./experience/index.html"),
         about: r("./about/index.html"),
+        contact: r("./contact/index.html"),
       },
     },
   },

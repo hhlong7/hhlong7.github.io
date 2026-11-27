@@ -33,7 +33,7 @@ export const screens: Screen[] = [
   {
     id: "laptop",
     href: "/about/",
-    label: "About me + contact",
+    label: "About me",
     quad: [[778, 876], [1178, 876], [1186, 1172], [772, 1172]],
     outline: [[778, 876], [1178, 876], [1186, 1172], [772, 1172]],
     design: { w: 1000, h: 740 },

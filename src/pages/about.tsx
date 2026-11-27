@@ -1,41 +1,9 @@
-import { useState } from "react"
-import { ArrowUpRight, Check, Copy, FileText, Mail, MapPin } from "lucide-react"
-import { GithubIcon, LinkedinIcon } from "@/components/brand-icons"
+import { Mail } from "lucide-react"
 import { Section, SiteFooter, SiteHeader, TodoNote, enter } from "@/components/site-chrome"
 import { bio, community, facts, interests, profile } from "@/data/content"
 
-function CopyEmail() {
-  const [state, setState] = useState<"idle" | "copied" | "failed">("idle")
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(profile.email)
-      setState("copied")
-    } catch {
-      // Clipboard blocked: select the address so a manual copy is one keystroke away.
-      const el = document.getElementById("email-address")
-      if (el) window.getSelection()?.selectAllChildren(el)
-      setState("failed")
-    }
-    window.setTimeout(() => setState("idle"), 1800)
-  }
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
-    >
-      {state === "copied" ? <Check aria-hidden className="size-4 text-accent" /> : <Copy aria-hidden className="size-4" />}
-      <span aria-live="polite">{state === "copied" ? "Copied" : state === "failed" ? "Selected, copy it now" : "Copy email"}</span>
-    </button>
-  )
-}
-
 export function AboutPage() {
   const shownFacts = facts.filter((f) => f.label !== "GitHub")
-  const links = [
-    { icon: GithubIcon, label: "GitHub", text: profile.github.label, href: profile.github.href },
-    { icon: LinkedinIcon, label: "LinkedIn", text: profile.linkedin.label, href: profile.linkedin.href },
-  ]
   return (
     <>
       <SiteHeader current="about" />
@@ -66,7 +34,7 @@ export function AboutPage() {
             </dl>
             <a
               {...enter(4)}
-              href="#contact"
+              href="/contact/"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent-fill px-5 py-2.5 font-medium text-on-accent no-underline ring-1 ring-accent/25 transition-[filter,box-shadow] ring-inset hover:brightness-125 hover:ring-accent/50"
             >
               <Mail aria-hidden className="size-4" /> Get in touch
@@ -113,58 +81,6 @@ export function AboutPage() {
           </div>
         </Section>
 
-        <Section id="contact" title="Contact" aside="Internships, research, projects, or just hi.">
-          <div className="border-y py-8">
-            <p className="text-sm text-muted-foreground">Email is the fastest way to reach me.</p>
-            <a
-              id="email-address"
-              href={`mailto:${profile.email}`}
-              className="mt-2 block font-display text-[clamp(1.6rem,4.6vw,3.25rem)] leading-tight font-bold tracking-tight break-all text-foreground decoration-accent/60 hover:text-accent"
-            >
-              {profile.email}
-            </a>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <CopyEmail />
-              <a
-                href={`mailto:${profile.email}?subject=${encodeURIComponent("Hi Long")}`}
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium text-foreground no-underline transition-colors hover:border-accent hover:text-accent"
-              >
-                <Mail aria-hidden className="size-4" /> Open in mail app
-              </a>
-            </div>
-          </div>
-          <ul className="divide-y border-b">
-            {links.map(({ icon: Icon, label, text, href }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener"
-                  className="group flex items-center gap-4 py-4 text-foreground no-underline"
-                >
-                  <Icon className="size-5 text-muted-foreground group-hover:text-accent" />
-                  <span className="w-20 text-sm text-faint">{label}</span>
-                  <span className="group-hover:text-accent">{text}</span>
-                  <ArrowUpRight aria-hidden className="ml-auto size-4 text-faint transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
-                </a>
-              </li>
-            ))}
-            <li className="flex items-center gap-4 py-4">
-              <FileText aria-hidden className="size-5 text-muted-foreground" />
-              <span className="w-20 text-sm text-faint">Résumé</span>
-              {profile.resume.available ? (
-                <a href={profile.resume.href} download className="text-foreground">Download (PDF)</a>
-              ) : (
-                <span className="text-muted-foreground">Coming soon</span>
-              )}
-            </li>
-            <li className="flex items-center gap-4 py-4">
-              <MapPin aria-hidden className="size-5 text-muted-foreground" />
-              <span className="w-20 text-sm text-faint">Based in</span>
-              <span>{profile.basedIn}</span>
-            </li>
-          </ul>
-        </Section>
       </main>
       <SiteFooter />
     </>

@@ -1,45 +1,51 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent, type TransitionEvent } from "react"
-import { ArrowUpRight, Laptop, Monitor } from "lucide-react"
+import { ArrowUpRight, Laptop, Mail, Monitor } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { profile } from "@/data/content"
 import { FOCUS, FOCUS_NARROW, PHOTO, bbox, frame, polygonSvg, screens, type Screen } from "./geometry"
-import { LaptopPreview, MonitorPreview } from "./screen-previews"
+import { ContactPreview, LaptopPreview, MonitorPreview } from "./screen-previews"
 import { PHOTO_PLACEHOLDER } from "./placeholder"
 
 type Id = Screen["id"]
+// What can pop up a card: the two screens, and the name in the corner (Contact).
+type CardId = Id | "contact"
+const isScreen = (id: CardId | null): id is Id => id === "monitor" || id === "laptop"
 
 const SRC = {
   jpg: "/assets/desk/desk.jpg",
   set: "/assets/desk/desk-1200.webp 1200w, /assets/desk/desk-2000.webp 2000w",
 }
-const ICON = { monitor: Monitor, laptop: Laptop } as const
-const PREVIEW = { monitor: MonitorPreview, laptop: LaptopPreview } as const
+const ICON = { monitor: Monitor, laptop: Laptop, contact: Mail } as const
+const PREVIEW = { monitor: MonitorPreview, laptop: LaptopPreview, contact: ContactPreview } as const
+const CONTACT = { href: "/contact/", label: "Contact", design: { w: 1000, h: 600 } }
+const HREF = (id: CardId) => (isScreen(id) ? screens.find((s) => s.id === id)!.href : CONTACT.href)
+const LABEL = (id: CardId) => (isScreen(id) ? screens.find((s) => s.id === id)!.label : CONTACT.label)
+const DESIGN = (id: CardId) => (isScreen(id) ? screens.find((s) => s.id === id)!.design : CONTACT.design)
+const CARDS: CardId[] = ["monitor", "laptop", "contact"]
 
 // The hover card: a scaled-down copy of the page, with a caption strip under it.
 const CARD = {
   monitor: { w: 480, scale: 480 / 1500 },
   laptop: { w: 340, scale: 340 / 1000 },
+  contact: { w: 360, scale: 360 / 1000 },
 } as const
 const CAPTION_H = 44
-const cardSize = (id: Id) => {
-  const sc = screens.find((s) => s.id === id)!
-  return { w: CARD[id].w, h: Math.round(sc.design.h * CARD[id].scale) + CAPTION_H }
-}
+const cardSize = (id: CardId) => ({ w: CARD[id].w, h: Math.round(DESIGN(id).h * CARD[id].scale) + CAPTION_H })
 const GAP = 22
 const EDGE = 12
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
-// Hand-off with the two pages (see the inline script in experience/ and about/ index.html).
-// desk:enter tells the page it was entered through a screen; desk:return tells the desk which
-// screen the visitor is coming back out of. A return note older than a few seconds is ignored.
-function readReturn(): Id | null {
+// Hand-off with the pages (see the inline script in each page's index.html).
+// desk:enter tells the page it was entered from the desk; desk:return tells the desk which
+// screen (or "contact") the visitor is coming back from. A note older than a few seconds is ignored.
+function readReturn(): CardId | null {
   try {
     const raw = sessionStorage.getItem("desk:return")
     sessionStorage.removeItem("desk:return")
     if (!raw) return null
-    const { id, t } = JSON.parse(raw) as { id: Id; t: number }
-    return Date.now() - t < 5000 && screens.some((s) => s.id === id) ? id : null
+    const { id, t } = JSON.parse(raw) as { id: CardId; t: number }
+    return Date.now() - t < 5000 && CARDS.includes(id) ? id : null
   } catch {
     return null
   }
@@ -73,11 +79,13 @@ function useViewport() {
 
 export function DeskScene() {
   const vp = useViewport()
-  const [active, setActive] = useState<Id | null>(null)
+  const [active, setActive] = useState<CardId | null>(null)
   // Coming back from a page starts inside that screen and pulls back out.
   const [returnFrom] = useState(() => (reducedMotion() ? null : readReturn()))
-  const [zooming, setZooming] = useState<Id | null>(returnFrom)
-  const [pivot, setPivot] = useState<Id>(returnFrom ?? "monitor")
+  const [zooming, setZooming] = useState<Id | null>(isScreen(returnFrom) ? returnFrom : null)
+  const [pivot, setPivot] = useState<Id>(isScreen(returnFrom) ? returnFrom : "monitor")
+  // Contact has no screen to fly into: the window just fades to the page color, and back.
+  const [fading, setFading] = useState(returnFrom === "contact")
   // `settling`: holding inside the screen until the photo can be shown, then pulling back.
   // `snapping`: one frame with transitions off while the pivot moves (the picture doesn't change).
   const [settling, setSettling] = useState(returnFrom !== null)
@@ -105,6 +113,7 @@ export function DeskScene() {
       flush()
       setSettling(false)
       setZooming(null)
+      setFading(false)
     }, photo === "loading" ? 1800 : 40)
     return () => window.clearTimeout(t)
   }, [settling, photo])
@@ -116,6 +125,7 @@ export function DeskScene() {
       leaving.current = false
       setActive(null)
       setZooming(null)
+      setFading(false)
     }
     window.addEventListener("pageshow", restore)
     return () => window.removeEventListener("pageshow", restore)
@@ -143,7 +153,7 @@ export function DeskScene() {
   }, [zooming, pivot, home, vp])
 
   // Where the card wants to be: beside the pointer, or above whatever opened it from the keyboard.
-  const target = useCallback((id: Id) => {
+  const target = useCallback((id: CardId) => {
     const { w, h } = cardSize(id)
     let x: number, y: number
     if (anchor.current) {
@@ -181,21 +191,33 @@ export function DeskScene() {
     return () => cancelAnimationFrame(raf)
   }, [active, zooming, target])
 
-  const show = useCallback((id: Id | null, from?: Element) => {
+  const show = useCallback((id: CardId | null, from?: Element) => {
     if (leaving.current) return
     anchor.current = from ? from.getBoundingClientRect() : null
     if (!id) pos.current = null
     setActive(id)
     if (id) {
       setTouched(true)
-      prefetch(screens.find((s) => s.id === id)!.href)
+      prefetch(HREF(id))
     }
   }, [])
 
-  const go = useCallback((id: Id) => {
+  const go = useCallback((id: CardId) => {
     try { sessionStorage.setItem("desk:enter", id) } catch { /* private mode: page just skips its entrance */ }
-    window.location.assign(screens.find((s) => s.id === id)!.href)
+    window.location.assign(HREF(id))
   }, [])
+
+  // The name opens Contact: no zoom, the window fades to the page color, then the page builds in.
+  const openContact = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+    if (reducedMotion() || settling) return
+    e.preventDefault()
+    if (leaving.current) return
+    leaving.current = true
+    setActive(null)
+    setFading(true)
+    window.setTimeout(() => go("contact"), 700) // in case transitionend never comes
+  }, [go, settling])
 
   const open = useCallback((e: MouseEvent<HTMLAnchorElement | SVGAElement>, screen: Screen) => {
     if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
@@ -223,11 +245,13 @@ export function DeskScene() {
   }, [snapping])
 
   const onVeilEnd = (e: TransitionEvent) => {
-    if (e.propertyName !== "opacity" || !zooming || !leaving.current) return
-    go(zooming)
+    if (e.propertyName !== "opacity" || !leaving.current) return
+    if (zooming) go(zooming)
+    else if (fading) go("contact")
   }
 
   const lit = zooming ?? active
+  const covered = zooming !== null || fading
   const size = active ? cardSize(active) : null
 
   return (
@@ -287,6 +311,7 @@ export function DeskScene() {
               </mask>
             ))}
           </defs>
+          <rect width={PHOTO.w} height={PHOTO.h} className={cn("fill-[oklch(0.12_0.01_135)] transition-opacity duration-300", lit === "contact" ? "opacity-35" : "opacity-0")} />
           {screens.map((sc) => (
             <rect
               key={sc.id}
@@ -318,7 +343,7 @@ export function DeskScene() {
             <a
               key={sc.id}
               href={sc.href}
-              aria-label={sc.id === "monitor" ? "Experience: work, projects and courses" : "About me and contact"}
+              aria-label={sc.id === "monitor" ? "Experience: work, projects and courses" : "About me"}
               className="group cursor-pointer outline-none"
               onPointerEnter={() => show(sc.id)}
               onPointerLeave={() => !zooming && show(null)}
@@ -352,8 +377,14 @@ export function DeskScene() {
         onTransitionEnd={onVeilEnd}
         className="pointer-events-none fixed inset-0 z-40 bg-page"
         style={{
-          opacity: zooming ? 1 : 0,
-          transition: instant ? "none" : zooming ? "opacity 180ms ease-in 660ms" : "opacity 380ms ease-out",
+          opacity: covered ? 1 : 0,
+          transition: instant
+            ? "none"
+            : zooming
+              ? "opacity 180ms ease-in 660ms"
+              : fading
+                ? "opacity 320ms cubic-bezier(0.4, 0, 1, 1)"
+                : "opacity 380ms ease-out",
         }}
       />
 
@@ -363,36 +394,37 @@ export function DeskScene() {
         aria-hidden
         className={cn(
           "pointer-events-none fixed top-0 left-0 z-20 hidden [@media(hover:hover)]:block",
-          active && !zooming ? "opacity-100" : "opacity-0",
+          active && !covered ? "opacity-100" : "opacity-0",
         )}
         style={{ transition: "opacity .25s cubic-bezier(.4,0,.2,1)" }}
       >
         <div
           className={cn(
             "relative overflow-hidden rounded-xl border bg-background shadow-[0_28px_60px_-18px_oklch(0_0_0/.85)] transition-[width,height,scale] duration-300 ease-out-expo",
-            active && !zooming ? "scale-100" : "scale-[.88]",
+            active && !covered ? "scale-100" : "scale-[.88]",
           )}
           style={{ width: size?.w ?? CARD.monitor.w, height: size?.h ?? 200, transformOrigin: "top left" }}
         >
-          {screens.map((sc) => {
-            const Preview = PREVIEW[sc.id]
-            const Icon = ICON[sc.id]
-            const on = active === sc.id
-            const { w, h } = cardSize(sc.id)
+          {CARDS.map((id) => {
+            const Preview = PREVIEW[id]
+            const Icon = ICON[id]
+            const on = active === id
+            const { w, h } = cardSize(id)
+            const design = DESIGN(id)
             return (
               <div
-                key={sc.id}
+                key={id}
                 className="absolute top-0 left-0 transition-[opacity,filter] duration-300 ease-out"
                 style={{ width: w, height: h, opacity: on ? 1 : 0, filter: on ? "none" : "blur(8px)" }}
               >
                 <div className="overflow-hidden" style={{ width: w, height: h - CAPTION_H }}>
-                  <div className="origin-top-left" style={{ width: sc.design.w, height: sc.design.h, transform: `scale(${CARD[sc.id].scale})` }}>
+                  <div className="origin-top-left" style={{ width: design.w, height: design.h, transform: `scale(${CARD[id].scale})` }}>
                     <Preview />
                   </div>
                 </div>
                 <div className="flex items-center gap-2 border-t px-3.5 text-[13px] font-medium" style={{ height: CAPTION_H }}>
                   <Icon className="size-4 text-accent" />
-                  {sc.label}
+                  {LABEL(id)}
                   <span className="ml-auto flex items-center gap-1 text-muted-foreground">
                     Click to open <ArrowUpRight className="size-3.5" />
                   </span>
@@ -409,13 +441,28 @@ export function DeskScene() {
       <header
         className={cn(
           "pointer-events-none absolute inset-x-0 top-0 flex items-start justify-between gap-4 px-5 pt-5 transition-opacity duration-300 sm:px-7 sm:pt-6",
-          zooming && "opacity-0",
+          covered && "opacity-0",
         )}
       >
-        <div className="drop-shadow-[0_1px_8px_oklch(0_0_0/.6)]">
-          <h1 className="font-display text-xl leading-none font-bold tracking-tight sm:text-2xl">{profile.name}</h1>
-          <p className="mt-1.5 font-detail text-[11px] tracking-[0.12em] whitespace-nowrap text-muted-foreground uppercase">{profile.tagline}</p>
-        </div>
+        <a
+          href={CONTACT.href}
+          aria-label={`${profile.name}. Contact: email, GitHub, LinkedIn`}
+          onPointerEnter={(e) => show("contact", e.currentTarget)}
+          onPointerLeave={() => !covered && show(null)}
+          onFocus={(e) => show("contact", e.currentTarget)}
+          onBlur={() => !covered && show(null)}
+          onClick={openContact}
+          className="group pointer-events-auto -m-2 rounded-lg p-2 text-foreground no-underline drop-shadow-[0_1px_10px_oklch(0_0_0/.75)]"
+        >
+          <h1 className="flex items-center gap-1.5 font-display text-xl leading-none font-bold tracking-tight sm:text-2xl">
+            {profile.name}
+            <ArrowUpRight
+              aria-hidden
+              className={cn("size-4 transition-[opacity,translate] duration-200 sm:size-5", lit === "contact" ? "translate-x-0 opacity-100" : "-translate-x-1 opacity-0")}
+            />
+          </h1>
+          <p className="mt-1.5 font-detail text-[11px] tracking-[0.12em] whitespace-nowrap text-foreground/80 uppercase">{profile.tagline}</p>
+        </a>
         <p
           className={cn(
             "flex items-center gap-2 pt-1 text-right text-[13px] text-muted-foreground drop-shadow-[0_1px_8px_oklch(0_0_0/.6)] transition-opacity duration-500",
@@ -438,7 +485,7 @@ export function DeskScene() {
         aria-label="Pages"
         className={cn(
           "absolute inset-x-0 bottom-0 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] transition-opacity duration-300",
-          zooming && "opacity-0",
+          covered && "opacity-0",
         )}
       >
         <div className="flex gap-1 rounded-full border bg-background/85 p-1 shadow-[0_10px_30px_-10px_oklch(0_0_0/.8)] backdrop-blur-md">

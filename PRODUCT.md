@@ -16,7 +16,7 @@ The personal portfolio of Long Hoang Ho, an Electrical Engineering student (CS m
 
 ## Positioning
 
-The site opens on an unedited photo of Long's real desk. The two screens on it are the navigation: hovering the curved monitor pops up a preview of the Experience page, hovering the laptop pops up About + contact, and clicking either zooms into that screen and opens the page. The work shown is hardware-level and verifiable: a 7-stage RV32IMAC core with measured test and cycle results, an RV32IM GPU fork, and KV-cache research.
+The site opens on an unedited photo of Long's real desk. The two screens on it are the navigation: hovering the curved monitor pops up a preview of the Experience page, hovering the laptop pops up About me, and clicking either zooms into that screen and opens the page. Hovering Long's name in the corner pops up Contact. The work shown is hardware-level and verifiable: a 7-stage RV32IMAC core with measured test and cycle results, an RV32IM GPU fork, and KV-cache research.
 
 ## Operating Context
 

@@ -1,11 +1,12 @@
 # Desk landing: interaction spec
 
-The landing page (`/`) is a photo of Long's desk. Two things on it are live: the curved monitor and the MacBook screen. Each leads to a real page.
+The landing page (`/`) is a photo of Long's desk. Three things on it are live: the curved monitor, the MacBook screen, and Long's name in the top-left corner. Each leads to a real page.
 
 | Screen | Hover / focus shows | Click / Enter / tap goes to |
 |---|---|---|
 | Monitor | a pop-up card beside the pointer with a miniature of the Experience page (work, projects, courses now) | `/experience/` |
-| Laptop | a pop-up card with a miniature of the About page (photo, intro, email, GitHub, LinkedIn, location) | `/about/` |
+| Laptop | a pop-up card with a miniature of the About page (photo, intro, school, degree, graduation, focus) | `/about/` |
+| Name (top left) | a pop-up card under the name with a miniature of the Contact page (email, copy and mail buttons, GitHub, LinkedIn, location); an arrow appears beside the name | `/contact/` |
 
 ## States
 
@@ -21,7 +22,8 @@ The landing page (`/`) is a photo of Long's desk. Two things on it are live: the
 
 ## Rules
 
-- The bottom bar ("Experience", "About me + contact") always works and mirrors hover: pointing at a button lights its screen and shows the card above the button.
+- Clicking the name doesn't zoom (there is no screen to fly into): the photo fades to the page color over 320ms, then Contact builds in the same way the other pages do. Coming back fades the desk back in.
+- The bottom bar ("Experience", "About me") always works and mirrors hover: pointing at a button lights its screen and shows the card above the button.
 - Touch: no hover and no card; a tap zooms and goes straight to the page.
 - Keyboard: Tab reaches both screens (accent outline on the glass) and both buttons. Focus shows the card next to the focused item.
 - Modifier-click or middle-click opens the page normally in a new tab, no zoom.

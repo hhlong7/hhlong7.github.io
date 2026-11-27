@@ -1,17 +1,19 @@
 import { useEffect, type CSSProperties, type ReactNode } from "react"
-import { ArrowLeft, ArrowUpRight, Laptop, Monitor, Moon, Sun } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, Laptop, Mail, Monitor, Moon, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { profile } from "@/data/content"
 import { useTheme } from "@/lib/theme"
 
-type Page = "experience" | "about"
+type Page = "experience" | "about" | "contact"
 
 const links = [
   { id: "experience" as const, href: "/experience/", label: "Experience", icon: Monitor },
-  { id: "about" as const, href: "/about/", label: "About + contact", icon: Laptop },
+  { id: "about" as const, href: "/about/", label: "About me", icon: Laptop },
+  { id: "contact" as const, href: "/contact/", label: "Contact", icon: Mail },
 ]
 
-const SCREEN = { experience: "monitor", about: "laptop" } as const
+// What the desk pulls back out of: a screen, or the name in its corner for Contact.
+const SCREEN = { experience: "monitor", about: "laptop", contact: "contact" } as const
 
 /** Stagger slot for the entrance played when the page is entered through a desk screen. */
 export const enter = (i: number) => ({ "data-enter": "", style: { "--i": i } as CSSProperties })
